@@ -430,9 +430,10 @@ footer{padding-block:32px 48px;font-size:.85rem;color:var(--muted);display:flex;
 .dc .tg.n{fill:var(--accent)} .dc .tg.w{fill:var(--up)}
 .dc .tt{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.06em;fill:var(--accent-ink)}
 .sw-acc{border-top-color:var(--accent)}
-@media (max-width:620px){.dfig{padding:12px}.dc .nm{font-size:25px}.dc .iv{font-size:28px}.dc .s-m{font-size:20px}.dc .mt{display:none}.dc{overflow:visible}}
+@media (max-width:620px){.chain{flex-direction:column;align-items:flex-start;gap:6px}.chain .conn .ic{transform:rotate(90deg)}.chain + .chain{margin-top:10px;padding-top:14px;border-top:1px solid var(--rule)}}
+@media (max-width:620px){.dfig{padding:12px}.dc .nm{font-size:26px}.dc .iv{font-size:30px}.dc .s-m{font-size:21px}.dc .tt{font-size:16px}.dc .mt{display:none}.dc{overflow:visible}}
 /* section head variants */
-.sec-hd.stack{grid-template-columns:minmax(0,1fr);max-width:880px}
+.sec-hd.stk{grid-template-columns:minmax(0,1fr);max-width:880px}
 .sec-hd.framed{border:1.5px solid var(--accent);background:var(--surface);padding:clamp(22px,3.4vw,40px)}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
@@ -558,7 +559,7 @@ footer{padding-block:32px 48px;font-size:.85rem;color:var(--muted);display:flex;
 
 <section id="issue">
   <div class="wrap">
-    <div class="sec-hd stack">
+    <div class="sec-hd stk">
       <h2>The morning issue lists only what changed.</h2>
       <p class="lede">New, weakened, unchanged. Then which way each change pushes crude, LNG, tankers and airlines, with every item linked to the articles behind it.</p>
     </div>
@@ -693,9 +694,9 @@ footer{padding-block:32px 48px;font-size:.85rem;color:var(--muted);display:flex;
                 <path class="g dv w" id="d-e3w" d="M212 70C250 116 272 160 293 196" marker-end="url(#d-acc)"/>
                 <g class="g" id="d-n1">
                   <circle cx="300" cy="206" r="8" fill="#4DB6A7"/>
-                  <text class="nm" x="320" y="240">Hormuz closure threat</text><text class="mt" x="320" y="258">Day 1, 05:40 · 4 outlets</text>
-                  <g class="g" id="d-t1new"><rect class="tg n" x="320" y="266" width="44" height="18"/><text class="tt" x="342" y="279" text-anchor="middle">new</text></g>
-                  <g class="g" id="d-t1weak"><rect class="tg w" x="320" y="266" width="76" height="18"/><text class="tt" x="358" y="279" text-anchor="middle">weakened</text></g>
+                  <text class="nm" x="300" y="296" text-anchor="middle">Hormuz closure threat</text><text class="mt" x="300" y="314" text-anchor="middle">Day 1, 05:40 · 4 outlets</text>
+                  <g class="g" id="d-t1new"><rect class="tg n" x="278" y="322" width="44" height="18"/><text class="tt" x="300" y="335" text-anchor="middle">new</text></g>
+                  <g class="g" id="d-t1weak"><rect class="tg w" x="262" y="322" width="76" height="18"/><text class="tt" x="300" y="335" text-anchor="middle">weakened</text></g>
                 </g>
                 <g class="g" id="d-n2">
                   <circle cx="46" cy="216" r="7" fill="none" stroke="#9DAAF2" stroke-width="2"/>
@@ -704,10 +705,10 @@ footer{padding-block:32px 48px;font-size:.85rem;color:var(--muted);display:flex;
                 </g>
                 <g class="g" id="d-n3">
                   <circle cx="206" cy="62" r="7" fill="none" stroke="#4DB6A7" stroke-width="2"/>
-                  <text class="nm" x="100" y="30">Iran–US talks</text><text class="mt" x="100" y="48">Day 3, 03:50 · 3 outlets</text>
-                  <g class="g" id="d-t3new"><rect class="tg n" x="230" y="54" width="44" height="18"/><text class="tt" x="252" y="67" text-anchor="middle">new</text></g>
+                  <text class="nm" x="226" y="30">Iran–US talks</text><text class="mt" x="226" y="48">Day 3, 03:50 · 3 outlets</text>
+                  <g class="g" id="d-t3new"><rect class="tg n" x="226" y="70" width="44" height="18"/><text class="tt" x="248" y="83" text-anchor="middle">new</text></g>
                 </g>
-                <text class="iv" x="428" y="40">Crude oil</text><text class="s-m s-up" id="d-i1" x="428" y="60">up, easing; slow push down</text>
+                <text class="iv" x="450" y="40">Crude oil</text><text class="s-m s-up" id="d-i1" x="450" y="62">up, easing; slowly down</text>
                 <text class="iv" x="556" y="114">LNG</text><text class="s-m s-up" id="d-i2" x="556" y="134">up, easing</text>
                 <text class="iv" x="470" y="326">Crude tankers</text><text class="s-m s-up" id="d-i3" x="470" y="346">up, easing</text>
                 <text class="iv" x="60" y="360">Airlines</text><text class="s-m s-down" id="d-i4" x="60" y="380">down, easing</text>
@@ -738,7 +739,7 @@ footer{padding-block:32px 48px;font-size:.85rem;color:var(--muted);display:flex;
   </div>
 </section>
 
-<section id="edge">
+<section id="edge" class="paper">
   <div class="wrap">
     <div class="sec-hd">
       <h2>Others sell scores or opinions. Newsleaf sells a record.</h2>
@@ -763,7 +764,7 @@ footer{padding-block:32px 48px;font-size:.85rem;color:var(--muted);display:flex;
 
 <section id="business" class="paper">
   <div class="wrap">
-    <div class="sec-hd stack">
+    <div class="sec-hd stk">
       <h2>Priced under the incumbents until the record earns more.</h2>
       <p class="lede">Newsleaf starts below the energy newsletters because it has no track record yet. The price rises once the scorecard covers a full year.</p>
     </div>
@@ -1104,12 +1105,12 @@ footer{padding-block:32px 48px;font-size:.85rem;color:var(--muted);display:flex;
        rows:[["new","Offshore discovery, with a slow downward arrow to crude oil"],["unchanged","Hormuz closure threat"]],
        note:"The run adds one event and one arrow. The rest of the graph stays as it was.",
        off:["d-n3","d-e3w"],thin:[],tags:["d-t2new"],
-       inst:[["up; slow push down","up"],["pushed up","up"],["pushed up","up"],["pushed down","down"]]},
+       inst:[["up; slowly down","up"],["pushed up","up"],["pushed up","up"],["pushed down","down"]]},
     3:{when:"Day 3, 03:50",start:"Started by three watchers that found new items between 03:38 and 03:47.",
        rows:[["new","Iran–US talks"],["new","An arrow from the talks that weakens the Hormuz threat"],["weakened","Hormuz closure threat and its four arrows"],["unchanged","Offshore discovery"]],
        note:"The threat stays in the graph at a lower weight.",
        off:[],thin:["d-e1c","d-e1l","d-e1t","d-e1a"],tags:["d-t3new","d-t1weak"],
-       inst:[["up, easing; slow push down","up"],["up, easing","up"],["up, easing","up"],["down, easing","down"]]}
+       inst:[["up, easing; slowly down","up"],["up, easing","up"],["up, easing","up"],["down, easing","down"]]}
   };
   var PARTS=["d-n1","d-n2","d-n3","d-e1c","d-e1l","d-e1t","d-e1a","d-e2c","d-e3w"];
   var TAGS=["d-t1new","d-t1weak","d-t2new","d-t3new"];
