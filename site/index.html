@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Newsleaf · Direction, not sentiment</title>
+<meta name="description" content="Newsleaf reads energy news overnight and tells investors which way each story pushes oil, gas, shipping and airline investments. Every weekday at 06:00.">
+<meta property="og:title" content="Newsleaf · One headline. Opposite trades.">
+<meta property="og:description" content="Newsleaf reads energy news overnight and tells investors which way each story pushes oil, gas, shipping and airline investments.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://newsleaf.ai/">
+<meta property="og:image" content="https://newsleaf.ai/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E1614">
+<link rel="canonical" href="https://newsleaf.ai/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230E1614'/%3E%3Cpath d='M32 32L50 12' stroke='%23E9A553' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M32 32L14 52' stroke='%239DAAF2' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%234DB6A7'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0E1614; --surface:#15201D; --surface-2:#1C2926; --ink:#E3EBE8; --muted:#97A7A2;
+  --rule:#2B3935; --accent:#4DB6A7; --accent-ink:#0B1412; --accent-soft:#17332E;
+  --up:#E9A553; --up-bg:#3A2A15; --down:#9DAAF2; --down-bg:#1F2650; --weak:#5F6E6A;
+  --land:#17332E; --grid:#16221F;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif;
+  --sans:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Spline Sans Mono",ui-monospace,Menlo,monospace;
+  --gut:clamp(16px,4vw,56px);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-color:var(--rule) var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--accent-ink)}
+img{max-width:100%}
+[hidden]{display:none!important}
+a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+p,h1,h2,h3,figure,ul,ol{margin:0}
+h1,h2,h3{font-family:var(--display);font-weight:700;text-transform:uppercase;line-height:.95;letter-spacing:-.005em;text-wrap:balance}
+h2{font-size:clamp(2.4rem,5.2vw,4.5rem);max-width:20ch}
+h3{font-size:clamp(1.5rem,2.4vw,1.9rem);line-height:1}
+.wrap{max-width:1280px;margin-inline:auto;padding-inline:var(--gut)}
+.lede{font-size:clamp(1.1rem,1.6vw,1.3rem);color:var(--muted);max-width:60ch}
+.src{font-family:var(--mono);font-size:.78rem;color:var(--muted);letter-spacing:.02em}
+.src a{color:var(--muted)}
+.src a:hover{color:var(--accent)}
+.tag{font-family:var(--display);font-weight:600;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid var(--rule);color:var(--muted);white-space:nowrap}
+.up-t{color:var(--up)} .dn-t{color:var(--down)}
+
+/* chart paper */
+.paper{background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.nav-in{display:flex;align-items:center;gap:28px;height:58px}
+.brand{font-family:var(--display);font-weight:700;font-size:1.5rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand svg{width:22px;height:22px}
+.nav-links{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;font-family:var(--display);font-weight:600;font-size:1.02rem;letter-spacing:.06em;text-transform:uppercase}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{color:var(--muted);text-decoration:none;white-space:nowrap}
+.nav-links a:hover{color:var(--ink)}
+.nav-ask{margin-left:auto}
+@media (max-width:820px){.nav-links{display:none}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.08rem;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;padding:13px 20px;border:1.5px solid var(--accent);color:var(--accent);background:transparent;transition:background .3s var(--ease),color .3s var(--ease)}
+.btn:hover{background:var(--accent-soft);color:var(--ink)}
+.btn.solid{background:var(--accent);color:var(--accent-ink)}
+.btn.solid:hover{background:var(--ink);border-color:var(--ink);color:var(--accent-ink)}
+.btn.sm{padding:8px 14px;font-size:.95rem}
+
+/* hero */
+.hero{position:relative;border-bottom:1px solid var(--rule);overflow:hidden}
+.hero-in{display:grid;grid-template-columns:minmax(0,600px) minmax(0,1fr);align-items:center;gap:24px;min-height:min(calc(100svh - 58px),900px);padding-block:48px}
+.block{position:relative;z-index:2;border:1.5px solid var(--accent);background:var(--surface);padding:clamp(22px,3vw,34px)}
+.block h1{font-size:clamp(3rem,5.6vw,5.4rem);margin-bottom:22px}
+.block p{font-size:1.12rem;color:var(--ink)}
+.block .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.block p.src{font-family:var(--display);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:.9rem;color:var(--muted);margin-top:22px;padding-top:14px;border-top:1px solid var(--rule)}
+.chart{position:relative;align-self:stretch;margin-right:calc(var(--gut) * -1)}
+.chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.chart text{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+.chart .why{font-family:var(--sans);font-weight:500;text-transform:none;letter-spacing:0;font-size:21px}
+.chart .snd{font-family:var(--mono);font-weight:400;font-size:13px;fill:var(--down);opacity:.55}
+.vec{fill:none;stroke-width:4;stroke-linecap:round}
+.vec.u{stroke:var(--up)} .vec.d{stroke:var(--down)}
+@media (prefers-reduced-motion:no-preference){
+  .vec{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.4s var(--ease) forwards}
+  .vec:nth-of-type(2){animation-delay:.12s}.vec:nth-of-type(3){animation-delay:.24s}.vec:nth-of-type(4){animation-delay:.36s}
+  .vlab{opacity:0;animation:fade .8s var(--ease) forwards;animation-delay:.9s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes fade{to{opacity:1}}
+}
+.rose{position:absolute;right:var(--gut);bottom:32px;width:110px;opacity:.9;z-index:1}
+.calls-m{display:none}
+@media (max-width:900px){
+  .hero-in{grid-template-columns:minmax(0,1fr);min-height:0;padding-block:28px 8px}
+  .chart{margin:0 calc(var(--gut) * -1);aspect-ratio:880/760;overflow:hidden}
+  .chart .why{display:none}
+  .rose{display:none}
+  .calls-m{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:28px}
+  .calls-m div{background:var(--surface);padding:12px 14px;font-size:.9rem;color:var(--muted)}
+  .calls-m b{display:block;font-family:var(--display);font-size:1.25rem;text-transform:uppercase;letter-spacing:.02em}
+}
+
+/* sections */
+section{padding-block:clamp(72px,10vw,128px);border-bottom:1px solid var(--rule);scroll-margin-top:58px}
+.sec-hd{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:24px 56px;align-items:end;margin-bottom:clamp(40px,6vw,72px)}
+@media (max-width:900px){.sec-hd{grid-template-columns:minmax(0,1fr)}}
+
+/* problem */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1.5px solid var(--accent)}
+.three > div{padding:28px 28px 8px 0;display:flex;flex-direction:column;gap:14px}
+.three > div + div{padding-left:28px;border-left:1px solid var(--rule)}
+.three svg{width:100%;height:auto;max-height:150px}
+.three p{color:var(--muted)}
+@media (max-width:900px){.three{grid-template-columns:minmax(0,1fr)}.three > div,.three > div + div{padding:28px 0;border-left:0;border-bottom:1px solid var(--rule)}}
+.mini text{font-family:var(--mono);font-size:12px;fill:var(--muted)}
+.mini .lbl{font-family:var(--display);font-weight:700;font-size:17px;text-transform:uppercase;fill:var(--ink)}
+.flows{margin-top:clamp(56px,8vw,96px);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:32px 64px;align-items:center}
+@media (max-width:900px){.flows{grid-template-columns:minmax(0,1fr)}}
+.flows .big{font-family:var(--display);font-weight:700;font-size:clamp(3rem,7vw,5.6rem);line-height:.9;text-transform:uppercase}
+.flows .big small{display:block;font-size:.32em;letter-spacing:.04em;color:var(--muted);margin-top:12px;line-height:1.2}
+.bars{display:flex;flex-direction:column;gap:14px}
+.bar{display:grid;grid-template-columns:110px minmax(0,1fr);gap:14px;align-items:center;font-size:.95rem}
+.bar span{color:var(--muted)}
+.bar i{display:block;height:28px;background:var(--accent);transform-origin:left;transition:transform 1.2s var(--ease)}
+.bar i.lo{background:var(--up)}
+.bar i b{display:inline-block;font-family:var(--mono);font-weight:500;font-size:.8rem;color:var(--accent-ink);padding:4px 8px;font-style:normal}
+
+/* issue */
+.issue-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:40px 64px;align-items:start}
+@media (max-width:960px){.issue-grid{grid-template-columns:minmax(0,1fr)}}
+.mail{border:1.5px solid var(--accent);background:var(--surface)}
+.mail-hd{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.mail-bd{padding:8px 20px 20px}
+.mail h3{font-size:1.9rem;margin:16px 0 6px}
+.item{display:grid;grid-template-columns:104px minmax(0,1fr);gap:4px 16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.item:last-of-type{border-bottom:0}
+.item small{display:block;color:var(--muted);font-size:.88rem}
+@media (max-width:520px){.item{grid-template-columns:minmax(0,1fr)}}
+.st{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;align-self:start}
+.st::before{content:"";width:10px;height:10px;border-radius:50%;flex:none}
+.st.new{color:var(--accent)} .st.new::before{background:var(--accent)}
+.st.weakened{color:var(--up)} .st.weakened::before{background:linear-gradient(90deg,var(--up) 50%,transparent 50%);box-shadow:inset 0 0 0 1.5px var(--up)}
+.st.unchanged{color:var(--muted)} .st.unchanged::before{box-shadow:inset 0 0 0 1.5px var(--muted)}
+.dirs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:18px}
+.dirs div{background:var(--bg);padding:12px 14px}
+.dirs b{display:block;font-family:var(--display);font-size:1.2rem;text-transform:uppercase;letter-spacing:.02em}
+.dirs span{font-size:.88rem;color:var(--muted)}
+.copy{display:flex;flex-direction:column;gap:18px}
+.copy p{color:var(--muted);max-width:52ch}
+.copy p strong{color:var(--ink);font-weight:600}
+
+/* search */
+.search{margin-top:clamp(56px,8vw,96px);border:1.5px solid var(--accent);background:var(--surface)}
+.search-hd{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 24px;padding:22px 22px 0}
+.search-hd h3{font-size:clamp(1.8rem,3vw,2.4rem)}
+.search-hd p{color:var(--muted);max-width:56ch;font-size:1rem}
+.search-bar{display:flex;gap:12px;align-items:center;padding:20px 22px 14px}
+.search-bar input{flex:1;min-width:0;font:inherit;font-size:1.15rem;padding:14px 16px;border:1px solid var(--rule);border-radius:0;background:var(--bg);color:var(--ink);caret-color:var(--accent)}
+.search-bar input:focus-visible{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+.search-bar input::placeholder{color:var(--muted)}
+.examples{display:flex;flex-wrap:wrap;gap:8px;padding:0 22px 20px;border-bottom:1px solid var(--rule)}
+.chip{font:inherit;font-family:var(--sans);font-size:.9rem;padding:6px 11px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.result{padding:20px 22px 24px;display:flex;flex-direction:column;gap:20px;min-height:260px}
+.res-top{display:flex;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;align-items:center;font-size:.85rem;color:var(--muted)}
+.read{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rd{padding:3px 9px;border:1px solid var(--rule);background:var(--bg);color:var(--ink)}
+.rd b{font-weight:600}
+.rd i{font-style:normal;color:var(--muted);margin-left:6px;font-family:var(--mono);font-size:.75rem}
+.blk{border-top:1px solid var(--rule);padding-top:18px;display:flex;flex-direction:column;gap:8px}
+.blk h3{font-size:1.6rem;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.blk .st{font-size:.85rem;margin-left:0}
+.sub{color:var(--muted);font-size:.98rem}
+.net{font-family:var(--display);font-weight:600;font-size:1.5rem;line-height:1.15;text-transform:uppercase;letter-spacing:.01em}
+.evs{list-style:none;margin:6px 0 0;padding:0}
+.evs li{display:grid;grid-template-columns:150px 1fr;gap:6px 16px;padding:14px 0;border-top:1px solid var(--rule)}
+@media (max-width:600px){.evs li{grid-template-columns:minmax(0,1fr)}}
+.dir{display:inline-block;font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;align-self:start;justify-self:start;white-space:nowrap}
+.dir.up{background:var(--up-bg);color:var(--up)}
+.dir.down{background:var(--down-bg);color:var(--down)}
+.evt{font-weight:600;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.evt .st{font-size:.82rem}
+.why{color:var(--muted);font-size:.96rem}
+.meta{font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.fx{display:flex;flex-wrap:wrap;gap:6px}
+.holds{font-size:.9rem;color:var(--muted)}
+
+/* how */
+.leg{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:24px 56px;padding-top:44px;margin-top:44px;border-top:1.5px solid var(--accent)}
+.leg:first-of-type{margin-top:0}
+.leg-hd{position:sticky;top:90px;align-self:start;display:flex;flex-direction:column;gap:10px}
+.leg-hd h3{font-size:clamp(2.2rem,4vw,3.2rem)}
+.leg-hd p{color:var(--muted);font-size:1rem}
+.leg-hd .src{color:var(--accent)}
+@media (max-width:900px){.leg{grid-template-columns:minmax(0,1fr)}.leg-hd{position:static}}
+.steps{display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;padding-block:28px;border-bottom:1px solid var(--rule)}
+.step:first-child{padding-top:0}
+.step:last-child{border-bottom:0}
+.step.full{grid-template-columns:minmax(0,1fr)}
+.step .tx{display:flex;flex-direction:column;gap:10px;max-width:68ch}
+.step .tx p{color:var(--muted);font-size:1rem}
+.step h4{margin:0;font-family:var(--display);font-weight:700;font-size:1.45rem;text-transform:uppercase;letter-spacing:.02em;display:flex;gap:12px;align-items:baseline}
+.step h4 span{font-family:var(--mono);font-weight:400;font-size:.78rem;color:var(--accent);letter-spacing:0}
+@media (max-width:1100px){.step{grid-template-columns:minmax(0,1fr)}}
+.fig{background:var(--surface);border:1px solid var(--rule);padding:18px;overflow-x:auto;scrollbar-width:thin}
+.fig svg{display:block;width:100%;height:auto}
+@media (max-width:620px){.fig{padding:14px}}
+.fig text{font-family:var(--sans);font-size:13px;fill:var(--ink)}
+.fig .s-b{font-weight:600}
+.fig .s-s{font-size:12px;fill:var(--muted)}
+.fig .s-m{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.fig .s-up{fill:var(--up)}
+.fig .s-down{fill:var(--down)}
+.fig .s-acc{fill:var(--accent)}
+.fig .card{fill:var(--bg);stroke:var(--rule);stroke-width:1.25}
+.fig .ev{fill:var(--bg);stroke:var(--ink);stroke-width:1.5}
+.fig .typ{fill:var(--bg);stroke:var(--ink);stroke-width:1.25;stroke-dasharray:5 4}
+.fig .ins{fill:var(--surface-2);stroke:var(--rule);stroke-width:1.25}
+.fig .ent{fill:var(--surface-2);stroke:var(--ink);stroke-width:1.25}
+.fig .topic{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.25}
+.fig .ln{fill:none;stroke:var(--muted);stroke-width:1.5}
+.fig .ln-d{stroke-dasharray:4 4}
+.fig .ln-up{stroke:var(--up);stroke-width:2.25}
+.fig .ln-down{stroke:var(--down);stroke-width:2.25}
+.fig .ln-slow{stroke-dasharray:8 5}
+.fig .ln-acc{stroke:var(--accent);stroke-width:2}
+.fig .ln-old{stroke:var(--weak);stroke-width:1.25}
+.fig .lblbg{fill:var(--surface)}
+.mk-muted{fill:var(--muted)} .mk-up{fill:var(--up)} .mk-down{fill:var(--down)} .mk-acc{fill:var(--accent)}
+.fig .dot-old{fill:var(--surface-2);stroke:var(--weak);stroke-width:1.25}
+.fig .dot-new{fill:var(--accent)}
+.fig .wedge{fill:var(--up);opacity:.3}
+.fig .axis{fill:none;stroke:var(--muted);stroke-width:1}
+.fig .pin{fill:var(--ink)}
+.fig .pin-o{fill:var(--surface);stroke:var(--ink);stroke-width:1.5}
+.fig .g{transition:opacity .5s var(--ease)}
+.fig .off{opacity:0}
+.fig .thin{opacity:.35}
+.fig .ln.thin{stroke-width:1.5}
+.fig .tag-new{fill:var(--accent)}
+.fig .tag-weak{fill:var(--up)}
+.fig .tag-t{font-family:var(--mono);font-size:11px;fill:var(--accent-ink)}
+
+/* watchers (html figure) */
+.watch{display:flex;flex-direction:column}
+.w-row{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 92px;gap:14px;align-items:center;padding:9px 0;border-bottom:1px solid var(--rule)}
+.w-row:last-of-type{border-bottom:0}
+.w-row b{display:block;font-weight:600;font-size:.95rem}
+.w-row small{font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+.w-row .n{font-family:var(--mono);font-size:.75rem;color:var(--muted);text-align:right}
+.w-row .n.on{color:var(--accent)}
+.its{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.it{width:20px;height:16px;flex:none}
+.it.seen{box-shadow:inset 0 0 0 1.25px var(--weak)}
+.it.new{background:var(--accent)}
+.it.drop{box-shadow:inset 0 0 0 1.25px var(--muted);background:linear-gradient(45deg,transparent 46%,var(--muted) 46%,var(--muted) 54%,transparent 54%),linear-gradient(-45deg,transparent 46%,var(--muted) 46%,var(--muted) 54%,transparent 54%);opacity:.8}
+.bm{width:2px;height:26px;background:var(--ink);position:relative;margin-inline:3px;flex:none}
+.bm::after{content:"";position:absolute;top:0;left:2px;border-left:7px solid var(--ink);border-top:4px solid transparent;border-bottom:4px solid transparent}
+.w-key{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px;font-size:.82rem;color:var(--muted)}
+.w-key span{display:inline-flex;align-items:center;gap:8px}
+@media (max-width:560px){.w-row{grid-template-columns:minmax(0,1fr) 78px}.w-row .its{grid-column:1 / -1;order:3}}
+
+/* runs */
+.runs{display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
+.runinfo{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:10px 32px;align-items:start}
+.runinfo .when,.runinfo #r-start{grid-column:1}.runinfo .chg{grid-column:2;grid-row:1 / span 3}
+@media (max-width:700px){.runinfo{grid-template-columns:minmax(0,1fr)}.runinfo .chg{grid-column:1;grid-row:auto}}
+@media (max-width:1100px){.runs{grid-template-columns:minmax(0,1fr)}}
+.seg{display:inline-flex;border:1px solid var(--accent);margin-bottom:16px}
+.run-btn{font:inherit;font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 18px;border:0;background:transparent;color:var(--accent);cursor:pointer}
+.run-btn+.run-btn{border-left:1px solid var(--accent)}
+.run-btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.legend{list-style:none;display:flex;flex-wrap:wrap;gap:6px 18px;margin:14px 0 0;padding:0;font-size:.85rem;color:var(--muted)}
+.sw{display:inline-block;width:24px;height:0;border-top:3px solid var(--up);vertical-align:middle;margin-right:7px}
+.sw-down{border-top-color:var(--down)}
+.sw-slow{border-top:3px dashed var(--down)}
+.sw-thin{border-top-width:1.5px;opacity:.45}
+.runinfo{display:flex;flex-direction:column;gap:12px;font-size:.98rem}
+.runinfo .when{font-family:var(--display);font-weight:700;font-size:1.7rem;line-height:1;text-transform:uppercase}
+.runinfo p{color:var(--muted)}
+.chg{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.chg li{display:flex;flex-direction:column;gap:2px}
+
+/* edge */
+.cmp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1.5px solid var(--accent)}
+.cmp > div{padding:28px 28px 28px 0;display:flex;flex-direction:column;gap:16px}
+.cmp > div + div{padding-left:28px;border-left:1px solid var(--rule)}
+.cmp .us{background:var(--accent-soft);padding-left:28px;border-left:0;outline:1.5px solid var(--accent);outline-offset:-1.5px}
+.cmp h3{font-size:1.9rem}
+.cmp dl{margin:0;display:flex;flex-direction:column;gap:12px}
+.cmp dt{font-family:var(--display);font-weight:600;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cmp dd{margin:2px 0 0;font-size:1rem}
+@media (max-width:900px){.cmp{grid-template-columns:minmax(0,1fr)}.cmp > div,.cmp > div + div{padding:24px 0;border-left:0;border-bottom:1px solid var(--rule)}.cmp .us{padding:24px 20px}}
+
+/* business */
+.biz{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px 72px;align-items:start}
+@media (max-width:960px){.biz{grid-template-columns:minmax(0,1fr)}}
+.price{font-family:var(--display);font-weight:700;font-size:clamp(3.4rem,7vw,5.6rem);line-height:.9;text-transform:uppercase}
+.price small{display:block;font-size:.3em;color:var(--muted);letter-spacing:.04em;margin-top:10px;line-height:1.2}
+.biz .copy{margin-top:22px}
+.pbars{display:flex;flex-direction:column;gap:12px}
+.pb{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr);gap:16px;align-items:center}
+.pb .nm{font-size:.95rem}
+.pb .nm a{color:var(--ink);text-decoration-color:var(--rule)}
+.pb .nm a:hover{text-decoration-color:var(--accent)}
+.pb .nm small{display:block;font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.pb .tr{position:relative;height:30px}
+.pb .tr i{position:absolute;top:0;bottom:0;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--rule)}
+.pb .tr b{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--mono);font-weight:500;font-size:.8rem;padding-left:8px;white-space:nowrap}
+.pb.us .tr i{background:var(--accent);box-shadow:none}
+.pb.us .nm{font-family:var(--display);font-weight:700;font-size:1.3rem;text-transform:uppercase;color:var(--accent)}
+@media (max-width:560px){.pb{grid-template-columns:minmax(0,1fr);gap:6px}}
+.be{margin-top:clamp(56px,8vw,88px)}
+.be h3{margin-bottom:28px}
+.axis-h{position:relative;height:120px;margin-inline:8px}
+.axis-h .line{position:absolute;left:0;right:0;top:52px;height:2px;background:var(--rule)}
+.axis-h .fill{position:absolute;left:0;top:50px;height:6px;background:var(--accent);width:100%;transform-origin:left;transition:transform 1.4s var(--ease)}
+.axis-h .mk{position:absolute;top:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;width:180px}
+.axis-h .mk b{font-family:var(--display);font-size:1.5rem;text-transform:uppercase;line-height:1}
+.axis-h .mk i{width:14px;height:14px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 3px var(--accent);margin-top:18px}
+.axis-h .mk span{font-size:.85rem;color:var(--muted);line-height:1.3}
+.axis-h .mk.end{transform:translateX(-100%);align-items:flex-end;text-align:right}
+.axis-h .mk.start{transform:none;align-items:flex-start;text-align:left}
+.axis-h .mk.top b{order:0}
+@media (max-width:620px){.axis-h{height:auto;display:flex;flex-direction:column;gap:18px}.axis-h .line,.axis-h .fill{display:none}.axis-h .mk,.axis-h .mk.end,.axis-h .mk.start{position:static;transform:none;width:auto;align-items:flex-start;text-align:left;border-left:2px solid var(--accent);padding-left:14px}.axis-h .mk i{display:none}}
+
+.route{margin-top:clamp(56px,8vw,88px)}
+.route h3{margin-bottom:32px}
+.stops{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;position:relative}
+.stops::before{content:"";position:absolute;left:7px;right:0;top:7px;border-top:2px dashed var(--accent)}
+.stops li{position:relative;padding:36px 24px 0 0;display:flex;flex-direction:column;gap:10px}
+.stops li::before{content:"";position:absolute;left:0;top:0;width:16px;height:16px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 3px var(--accent)}
+.stops li:first-child::before{background:var(--accent)}
+.stops .when{font-family:var(--display);font-weight:700;font-size:1.5rem;text-transform:uppercase;line-height:1}
+.stops .ships{font-weight:600}
+.stops p{font-size:.95rem;color:var(--muted)}
+.stops .test{font-size:.9rem;color:var(--ink);border-top:1px solid var(--rule);padding-top:10px}
+.stops .test em{font-style:normal;font-family:var(--display);font-weight:600;font-size:.85rem;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;display:block}
+@media (max-width:960px){.stops{grid-template-columns:minmax(0,1fr);gap:28px}.stops::before{left:7px;right:auto;top:8px;bottom:0;border-top:0;border-left:2px dashed var(--accent)}.stops li{padding:0 0 0 40px}}
+
+/* ask */
+.ask .big{font-family:var(--display);font-weight:700;font-size:clamp(4.5rem,13vw,10rem);line-height:.85;letter-spacing:-.01em;color:var(--accent)}
+.ask-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 64px;align-items:end;margin-bottom:48px}
+.ask-top h2{max-width:none}
+@media (max-width:900px){.ask-top{grid-template-columns:minmax(0,1fr)}}
+.stack{display:flex;height:56px;gap:2px;margin-bottom:28px}
+.stack i{display:block;height:100%}
+.alloc{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 40px}
+.alloc li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:4px 12px;padding-top:14px;border-top:1px solid var(--rule)}
+.alloc li i{width:14px;height:14px;margin-top:6px;grid-row:span 3}
+.alloc b{font-family:var(--display);font-weight:700;font-size:1.25rem;text-transform:uppercase;letter-spacing:.02em}
+.alloc .amt{font-family:var(--mono);font-size:.95rem}
+.alloc p{font-size:.9rem;color:var(--muted)}
+@media (max-width:900px){.alloc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media (max-width:560px){.alloc{grid-template-columns:minmax(0,1fr)}}
+.c1{background:#4DB6A7}.c2{background:#2F8A7E}.c3{background:#1F5F57}.c4{background:#E9A553}.c5{background:#9DAAF2}.c6{background:#5F6E6A}
+.team{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:32px 48px;margin-top:clamp(64px,9vw,104px);padding-top:40px;border-top:1.5px solid var(--accent)}
+.team h3{font-size:2rem}
+.team .role{font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;margin:6px 0 10px}
+.team p{color:var(--muted);font-size:1rem}
+.team .close{font-family:var(--display);font-weight:600;font-size:1.7rem;line-height:1.3;color:var(--ink)}
+@media (max-width:900px){.team{grid-template-columns:minmax(0,1fr)}}
+footer{padding-block:32px 48px;font-size:.85rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* chart-language figures */
+.ic{width:1em;height:1em;vertical-align:-.14em;flex:none;margin-right:.3em}
+.fig.fl{display:flex;flex-direction:column;gap:14px}
+.fl .fl{display:flex;flex-direction:column;gap:10px}
+.tb2{border:1.5px solid var(--accent);background:var(--bg);padding:10px 14px;display:flex;flex-direction:column;gap:2px}
+.tb2 b{font-family:var(--display);font-weight:700;font-size:1.15rem;text-transform:uppercase;letter-spacing:.02em;line-height:1.1}
+.tb2 small{font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+.tb2.acc{background:var(--accent-soft)}
+.tb2.dash{border-style:dashed}
+.tb2.sm{padding:6px 12px}
+.cards{display:flex;flex-direction:column;gap:8px}
+.sc{border:1px solid var(--rule);padding:8px 12px;font-size:.95rem;background:var(--bg)}
+.sc small{display:block;font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+.conn{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.9rem;line-height:1.3}
+.conn small{font-family:var(--mono);font-size:.76rem}
+.conn .ic{width:30px;height:20px;margin:0}
+.conn.acc{color:var(--accent)} .conn.u{color:var(--up)}
+.conn.down .ic{transform:rotate(90deg)}
+.g3{display:grid;grid-template-columns:minmax(0,1.2fr) auto minmax(0,1fr);gap:18px;align-items:center}
+@media (max-width:760px){.g3{grid-template-columns:minmax(0,1fr)}.conn.v .ic{transform:rotate(90deg)}}
+.lab{font-family:var(--display);font-weight:600;font-size:.85rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.toks{display:flex;flex-wrap:wrap;gap:8px}
+.tok{display:flex;flex-direction:column;border:1px solid var(--rule);padding:6px 12px;background:var(--bg)}
+.tok em{font-style:normal;font-family:var(--display);font-weight:600;font-size:.8rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.tok.acc{border-color:var(--accent)}
+.rel,.chain,.topics{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.ents{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:10px;border-top:1px solid var(--rule);padding-top:10px}
+.ents div{display:flex;flex-direction:column;font-size:.95rem}
+.ents small{font-family:var(--sans);font-size:.85rem}
+.invs{display:flex;flex-direction:column;gap:8px}
+.inv{display:grid;grid-template-columns:22px minmax(0,1fr);gap:0 10px;border:1px solid var(--rule);padding:8px 12px;background:var(--bg)}
+.inv .ic{width:20px;height:20px;grid-row:span 2;margin:2px 0 0}
+.inv.u .ic,.inv.u b{color:var(--up)} .inv.d .ic,.inv.d b{color:var(--down)}
+.inv b{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:1.05rem;letter-spacing:.02em}
+.inv span{font-size:.9rem;color:var(--muted)}
+.kv{display:grid;grid-template-columns:100px minmax(0,1fr);gap:12px 16px;margin:0;align-items:center}
+.kv dt{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-size:.9rem}
+.kv dd{margin:0;font-family:var(--mono);font-size:.85rem}
+.decay{position:relative;height:40px}
+.decay i{position:absolute;inset:0;background:var(--up);opacity:.5;clip-path:polygon(0 0,100% 50%,100% 100%,0 100%)}
+.dax{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:.76rem;color:var(--muted);margin-top:6px;border-top:1px solid var(--muted);padding-top:4px}
+.dir .ic{margin-right:.25em}
+.fx .dir{display:inline-flex;align-items:center}
+/* delta chart */
+.dfig{padding:18px}
+.dc{display:block;width:100%;height:auto}
+.dc .land{fill:var(--land);stroke:var(--accent);stroke-width:1.25}
+.dc .dv{fill:none;stroke-width:3.5;stroke-linecap:round;transition:opacity .6s var(--ease),stroke-width .6s var(--ease)}
+.dc .dv.u{stroke:var(--up)} .dc .dv.d{stroke:var(--down)} .dc .dv.s{stroke-dasharray:9 7} .dc .dv.w{stroke:var(--accent);stroke-width:2.5}
+.dc .dv.thin{stroke-width:1.5}
+.dc .thin{opacity:.35}
+.dc text{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.02em;fill:var(--ink)}
+.dc .nm{font-size:19px} .dc .iv{font-size:22px}
+.dc .mt{font-family:var(--mono);font-weight:400;font-size:12px;text-transform:none;letter-spacing:0;fill:var(--muted)}
+.dc .s-m{font-family:var(--sans);font-weight:500;font-size:15px;text-transform:none;letter-spacing:0}
+.dc .s-up{fill:var(--up)} .dc .s-down{fill:var(--down)}
+.dc .tg.n{fill:var(--accent)} .dc .tg.w{fill:var(--up)}
+.dc .tt{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.06em;fill:var(--accent-ink)}
+.sw-acc{border-top-color:var(--accent)}
+@media (max-width:620px){.dfig{padding:12px}.dc .nm{font-size:25px}.dc .iv{font-size:28px}.dc .s-m{font-size:20px}.dc .mt{display:none}.dc{overflow:visible}}
+/* section head variants */
+.sec-hd.stack{grid-template-columns:minmax(0,1fr);max-width:880px}
+.sec-hd.framed{border:1.5px solid var(--accent);background:var(--surface);padding:clamp(22px,3.4vw,40px)}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-up" viewBox="0 0 16 16"><path d="M8 14V3M3.5 7.5L8 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="i-down" viewBox="0 0 16 16"><path d="M8 2v11M3.5 8.5L8 13l4.5-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="i-next" viewBox="0 0 24 16"><path d="M2 8h18M15 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol></defs></svg>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Newsleaf home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12L21 3" stroke="#E9A553" stroke-width="2.5" stroke-linecap="round"/><path d="M12 12L3 21" stroke="#9DAAF2" stroke-width="2.5" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" fill="#4DB6A7"/></svg>Newsleaf</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#problem">Problem</a>
+      <a href="#issue">The issue</a>
+      <a href="#how">How it works</a>
+      <a href="#edge">Edge</a>
+      <a href="#business">Business</a>
+      <a href="#team">Team</a>
+    </nav>
+    <a class="btn sm solid nav-ask" href="#ask">The ask</a>
+  </div>
+</header>
+
+<main id="top">
+
+<div class="hero paper">
+  <div class="wrap hero-in">
+    <div class="block">
+      <h1>One headline. Opposite trades.</h1>
+      <p>“Iran threatens to close the Strait of Hormuz” lifts crude, LNG and tankers, and sinks airlines. Newsleaf tells investors which way each energy story pushes their holdings, every weekday at 06:00.</p>
+      <div class="acts">
+        <a class="btn solid" href="#issue">Read the morning issue</a>
+        <a class="btn" href="#ask">The ask: $25,000</a>
+      </div>
+      <p class="src">Example event · Day 1, 05:40 · 4 outlets</p>
+    </div>
+    <div class="chart" aria-hidden="true">
+      <svg viewBox="0 0 880 760" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <marker id="h-u" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E9A553"/></marker>
+          <marker id="h-d" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#9DAAF2"/></marker>
+        </defs>
+        <path d="M120 -400L200 0C240 110 320 180 400 230C450 262 480 316 550 334C630 352 740 316 880 290C1000 268 1200 250 1600 240V-400Z" fill="#17332E" stroke="#4DB6A7" stroke-width="1.5"/>
+        <path d="M-60 1200L60 760C120 640 190 590 290 540C360 506 410 516 450 474C490 432 560 424 620 398C700 364 780 372 880 340C1000 300 1200 290 1600 280V1200Z" fill="#17332E" stroke="#4DB6A7" stroke-width="1.5"/>
+        <g class="snd"><text x="150" y="340">26</text><text x="330" y="300">63</text><text x="210" y="420">42</text><text x="270" y="460">57</text><text x="400" y="390">71</text><text x="190" y="520">38</text><text x="680" y="360">88</text><text x="760" y="338">94</text></g>
+        <circle cx="490" cy="395" r="60" fill="none" stroke="#4DB6A7" stroke-dasharray="4 5"/>
+        <circle cx="490" cy="395" r="8" fill="#4DB6A7"/>
+        <text x="490" y="482" text-anchor="middle" font-size="21" fill="#4DB6A7" letter-spacing="3">Strait of Hormuz</text>
+        <path class="vec u" pathLength="1" d="M490 395L680 120" marker-end="url(#h-u)"/>
+        <path class="vec u" pathLength="1" d="M490 395L800 215" marker-end="url(#h-u)"/>
+        <path class="vec u" pathLength="1" d="M490 395L770 580" marker-end="url(#h-u)"/>
+        <path class="vec d" pathLength="1" d="M490 395L210 670" marker-end="url(#h-d)"/>
+        <g class="vlab" style="color:#E9A553"><use href="#i-up" x="560" y="40" width="34" height="34"/><text x="598" y="70" font-size="38" fill="#E9A553">Crude oil</text><text class="why" x="562" y="98" fill="#E9A553">Less oil may reach the market</text></g>
+        <g class="vlab" style="color:#E9A553"><use href="#i-up" x="650" y="140" width="34" height="34"/><text x="688" y="170" font-size="38" fill="#E9A553">LNG</text><text class="why" x="652" y="198" fill="#E9A553">A fifth of LNG trade</text></g>
+        <g class="vlab" style="color:#E9A553"><use href="#i-up" x="560" y="604" width="34" height="34"/><text x="598" y="634" font-size="38" fill="#E9A553">Crude tankers</text><text class="why" x="562" y="662" fill="#E9A553">Longer routes, costlier insurance</text></g>
+        <g class="vlab" style="color:#9DAAF2"><use href="#i-down" x="60" y="686" width="34" height="34"/><text x="98" y="716" font-size="38" fill="#9DAAF2">Airlines</text><text class="why" x="62" y="744" fill="#9DAAF2">Jet fuel gets more expensive</text></g>
+      </svg>
+    </div>
+    <div class="calls-m" role="list" aria-label="Effects of the example headline">
+      <div role="listitem"><b class="up-t"><svg class="ic"><use href="#i-up"/></svg>Crude oil</b>Less oil may reach the market</div>
+      <div role="listitem"><b class="up-t"><svg class="ic"><use href="#i-up"/></svg>LNG</b>A fifth of LNG trade uses the strait</div>
+      <div role="listitem"><b class="up-t"><svg class="ic"><use href="#i-up"/></svg>Crude tankers</b>Longer routes, costlier insurance</div>
+      <div role="listitem"><b class="dn-t"><svg class="ic"><use href="#i-down"/></svg>Airlines</b>Jet fuel gets more expensive</div>
+    </div>
+  </div>
+  <svg class="rose" viewBox="-70 -70 140 140" aria-hidden="true"><g fill="none" stroke="#4DB6A7"><circle r="60"/><circle r="44" stroke-dasharray="2 4"/><path d="M0-70V70M-70 0H70"/></g><path d="M0-60L8 0L0 60L-8 0Z" fill="#4DB6A7"/><text y="-48" text-anchor="middle" font-family="Spline Sans Mono" font-size="10" fill="#97A7A2" dy="-16">N</text></svg>
+</div>
+
+<section id="problem" class="paper">
+  <div class="wrap">
+    <div class="sec-hd">
+      <h2>Energy news is loud, repetitive and out of date by Wednesday.</h2>
+      <p class="lede">Investors holding oil, gas, shipping or airline positions read the same story again and again and still can’t tell which way it moves their positions.</p>
+    </div>
+    <div class="three">
+      <div>
+        <svg class="mini" viewBox="0 0 300 130" aria-hidden="true">
+          <g fill="#2B3935"><rect x="0" y="4" width="18" height="14"/><rect x="24" y="4" width="18" height="14"/><rect x="48" y="4" width="18" height="14"/><rect x="72" y="4" width="18" height="14"/><rect x="96" y="4" width="18" height="14"/><rect x="120" y="4" width="18" height="14"/><rect x="0" y="24" width="18" height="14"/><rect x="24" y="24" width="18" height="14"/><rect x="48" y="24" width="18" height="14"/><rect x="72" y="24" width="18" height="14"/><rect x="96" y="24" width="18" height="14"/><rect x="120" y="24" width="18" height="14"/><rect x="0" y="44" width="18" height="14"/><rect x="24" y="44" width="18" height="14"/><rect x="48" y="44" width="18" height="14"/><rect x="72" y="44" width="18" height="14"/><rect x="96" y="44" width="18" height="14"/><rect x="120" y="44" width="18" height="14"/><rect x="0" y="64" width="18" height="14"/><rect x="24" y="64" width="18" height="14"/><rect x="48" y="64" width="18" height="14"/><rect x="72" y="64" width="18" height="14"/><rect x="96" y="64" width="18" height="14"/><rect x="120" y="64" width="18" height="14"/><rect x="0" y="84" width="18" height="14"/><rect x="24" y="84" width="18" height="14"/><rect x="48" y="84" width="18" height="14"/><rect x="72" y="84" width="18" height="14"/><rect x="96" y="84" width="18" height="14"/><rect x="120" y="84" width="18" height="14"/><rect x="0" y="104" width="18" height="14"/><rect x="24" y="104" width="18" height="14"/><rect x="48" y="104" width="18" height="14"/><rect x="72" y="104" width="18" height="14"/><rect x="96" y="104" width="18" height="14"/><rect x="120" y="104" width="18" height="14"/></g>
+          <path d="M168 62H222" stroke="#97A7A2" stroke-width="1.5" fill="none"/><path d="M222 57l8 5-8 5z" fill="#97A7A2"/>
+          <circle cx="262" cy="62" r="20" fill="#4DB6A7"/>
+          <text x="262" y="112" text-anchor="middle">1 event</text>
+        </svg>
+        <h3>Dozens of articles. One event.</h3>
+        <p>One development produces dozens of near-identical stories. A reader can’t quickly tell a new development from the same story published again.</p>
+      </div>
+      <div>
+        <svg class="mini" viewBox="0 0 300 130" aria-hidden="true">
+          <rect x="0.75" y="20" width="120" height="50" fill="none" stroke="#2B3935" stroke-width="1.5"/>
+          <text x="12" y="40">tone score</text>
+          <text class="lbl" x="12" y="60" style="fill:#97A7A2">Negative</text>
+          <path d="M150 64L222 14" stroke="#E9A553" stroke-width="3" fill="none"/><path d="M216 12l10-2-4 9z" fill="#E9A553"/>
+          <path d="M150 64L222 114" stroke="#9DAAF2" stroke-width="3" fill="none"/><path d="M222 108l4 9-10-2z" fill="#9DAAF2"/>
+          <text class="lbl" x="232" y="24" style="fill:#E9A553">Crude</text>
+          <text class="lbl" x="232" y="120" style="fill:#9DAAF2">Airlines</text>
+        </svg>
+        <h3>Bad news is not a direction.</h3>
+        <p>Sentiment tools score the tone of a headline. “Iran threatens to close the Strait of Hormuz” scores as bad news. It raises crude prices and lowers airline shares.</p>
+      </div>
+      <div>
+        <svg class="mini" viewBox="0 0 300 130" aria-hidden="true">
+          <path d="M0 96H300" stroke="#2B3935" stroke-width="1.5"/>
+          <path d="M10 40L140 40L280 84" stroke="#E9A553" stroke-width="10" fill="none" opacity=".25"/>
+          <path d="M10 40H140" stroke="#E9A553" stroke-width="10" fill="none"/>
+          <circle cx="10" cy="96" r="5" fill="#E3EBE8"/><text x="0" y="122">Mon · threat</text>
+          <circle cx="150" cy="96" r="5" fill="#4DB6A7"/><text x="128" y="122">Wed · talks</text>
+        </svg>
+        <h3>Monday’s threat, Wednesday’s retraction.</h3>
+        <p>News expires. A threat made on Monday can be withdrawn by Wednesday, and readers are left tracking which earlier stories still hold.</p>
+      </div>
+    </div>
+
+    <div class="flows">
+      <p class="big">Brent +45%<small>since the start of the war in Iran, as of May 2026</small></p>
+      <div>
+        <div class="bars" data-grow>
+          <div class="bar"><span>Before</span><i style="width:100%"><b>20.7 mb/d</b></i></div>
+          <div class="bar"><span>A quarter later</span><i class="lo" style="width:70.5%"><b>14.6 mb/d</b></i></div>
+        </div>
+        <p class="src" style="margin-top:14px">Oil flowing through the Strait of Hormuz, million barrels a day · <a href="https://www.ttnews.com/articles/hormuz-oil-flows-fell-q1">EIA via Transport Topics</a> · <a href="https://eia.gov/todayinenergy/detail.php?id=65504">EIA</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="issue">
+  <div class="wrap">
+    <div class="sec-hd stack">
+      <h2>The morning issue lists only what changed.</h2>
+      <p class="lede">New, weakened, unchanged. Then which way each change pushes crude, LNG, tankers and airlines, with every item linked to the articles behind it.</p>
+    </div>
+    <div class="issue-grid">
+      <article class="mail" aria-label="Sample morning issue">
+        <div class="mail-hd"><span>Newsleaf · Day 3 · 06:00</span><span class="tag">Sample data</span></div>
+        <div class="mail-bd">
+          <h3>Since the Day 2 issue</h3>
+          <div class="item"><span class="st new">New</span><div>Iran and the US agree to reopen talks.<small>Reported by 3 outlets</small></div></div>
+          <div class="item"><span class="st weakened">Weakened</span><div>The threat to close the Strait of Hormuz.<small>First reported Day 1 · weakened by the talks</small></div></div>
+          <div class="item"><span class="st unchanged">Unchanged</span><div>An offshore oil discovery.<small>First reported Day 2 · found in an SEC filing</small></div></div>
+          <div class="dirs">
+            <div><b class="up-t"><svg class="ic"><use href="#i-up"/></svg>Crude oil</b><span>Upward pressure, easing</span></div>
+            <div><b class="up-t"><svg class="ic"><use href="#i-up"/></svg>LNG</b><span>Upward pressure, easing</span></div>
+            <div><b class="up-t"><svg class="ic"><use href="#i-up"/></svg>Crude tankers</b><span>Upward pressure, easing</span></div>
+            <div><b class="dn-t"><svg class="ic"><use href="#i-down"/></svg>Airlines</b><span>Downward pressure, easing</span></div>
+          </div>
+        </div>
+      </article>
+      <div class="copy">
+        <p><strong>One line per development.</strong> Overnight, Newsleaf pulls every new energy story, merges the duplicates and compares the result with the previous graph.</p>
+        <p><strong>Direction comes with a reason.</strong> Each call names the event behind it and why it moves the price: jet fuel follows crude, and fuel is one of an airline’s largest costs.</p>
+        <p><strong>Old stories fade. They don’t vanish.</strong> When talks undercut a threat, the issue says so, and the threat stays on record at a lower weight.</p>
+      </div>
+    </div>
+
+    <div class="search">
+      <div class="search-hd">
+        <h3>Search the graph</h3>
+        <p>Answers questions about any topic, company, ticker or place, as of today or any earlier day.</p>
+      </div>
+      <div class="search-bar">
+        <label for="q" class="tag">Query</label>
+        <input id="q" type="text" value="why are airline stocks down?" autocomplete="off" spellcheck="false" placeholder="A topic, company, ticker, place or question">
+      </div>
+      <div class="examples" role="group" aria-label="Example searches">
+        <button class="chip" type="button" data-q="oil">oil</button>
+        <button class="chip" type="button" data-q="Brent">Brent</button>
+        <button class="chip" type="button" data-q="XOM">XOM</button>
+        <button class="chip" type="button" data-q="Hormuz">Hormuz</button>
+        <button class="chip" type="button" data-q="LNG">LNG</button>
+        <button class="chip" type="button" data-q="why are airline stocks down?">why are airline stocks down?</button>
+        <button class="chip" type="button" data-q="is shipping affected by Iran?">is shipping affected by Iran?</button>
+        <button class="chip" type="button" data-q="what changed today?">what changed today?</button>
+        <button class="chip" type="button" data-q="oil on Day 1">oil on Day 1</button>
+      </div>
+      <div class="result" id="result" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="paper">
+  <div class="wrap">
+    <div class="sec-hd framed">
+      <h2>How a headline becomes a direction.</h2>
+      <p class="lede">Newsleaf keeps the news as a graph: events, the countries, companies and places involved, and the investments each event moves. Eight steps build it, shown here on the Hormuz story.</p>
+    </div>
+
+    <div class="leg">
+      <div class="leg-hd"><h3>Collect</h3><p>Six sources, watched around the clock. Nothing is thrown away.</p></div>
+      <div class="steps">
+        <div class="step full">
+          <div class="tx">
+            <h4><span>01</span>Watch</h4>
+            <p>A watcher agent sits on each source and checks it on its own schedule. It keeps a bookmark at the last item it handed over, drops anything that isn’t about energy, and passes the rest to a run. When a story breaks, several watchers catch it within minutes and their items land in the same run.</p>
+            <p>The first run has no bookmarks, so everything each source shows goes in and becomes the first graph. Every run after that adds only what’s new. Bloomberg and the Financial Times are out of version 1: their terms forbid automated collection.</p>
+          </div>
+          <div class="fig watch" role="img" aria-label="Six watchers. Each shows items already seen, a bookmark, and new items after it. Three sources have new items in this run.">
+            <div class="w-row"><div><b>Publisher RSS feeds</b><small>every 5 minutes</small></div><div class="its"><i class="it seen"></i><i class="it seen"></i><i class="it seen"></i><i class="it seen"></i><i class="bm"></i><i class="it new"></i><i class="it drop"></i><i class="it new"></i></div><span class="n on">2 new</span></div>
+            <div class="w-row"><div><b>GDELT news index</b><small>every 15 minutes</small></div><div class="its"><i class="it seen"></i><i class="it seen"></i><i class="it seen"></i><i class="it seen"></i><i class="bm"></i><i class="it new"></i></div><span class="n on">1 new</span></div>
+            <div class="w-row"><div><b>NewsAPI.org headlines</b><small>every 15 minutes</small></div><div class="its"><i class="it seen"></i><i class="it seen"></i><i class="it seen"></i><i class="bm"></i><i class="it new"></i></div><span class="n on">1 new</span></div>
+            <div class="w-row"><div><b>SEC EDGAR filings</b><small>every 10 minutes</small></div><div class="its"><i class="it seen"></i><i class="it seen"></i><i class="it seen"></i><i class="bm"></i></div><span class="n">nothing new</span></div>
+            <div class="w-row"><div><b>EIA reports</b><small>on release days</small></div><div class="its"><i class="it seen"></i><i class="it seen"></i><i class="bm"></i></div><span class="n">nothing new</span></div>
+            <div class="w-row"><div><b>OPEC reports</b><small>on release days</small></div><div class="its"><i class="it seen"></i><i class="bm"></i></div><span class="n">nothing new</span></div>
+            <div class="w-key"><span><i class="it new"></i>handed to the run</span><span><i class="it seen"></i>already seen</span><span><i class="it drop"></i>not energy, dropped</span><span><i class="bm" style="height:16px"></i>bookmark</span></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="tx"><h4><span>02</span>Ingest</h4><p>Every new article is stored exactly as fetched, with the fetch time. Nothing downstream edits the archive, so old articles can be reprocessed whenever extraction improves.</p></div>
+          <div class="fig fl"><div class="g3"><div class="cards"><div class="sc"><small>wire service · 04:12</small>Iran threatens to close Strait of Hormuz</div><div class="sc"><small>UK broadcaster · 04:31</small>Tehran warns it could shut the strait</div><div class="sc"><small>business daily · 04:50</small>Oil jumps as Iran raises Hormuz threat</div><div class="sc"><small>energy trade site · 05:21</small>Hormuz threat puts tanker market on edge</div></div><div class="conn v"><svg class="ic"><use href="#i-next"/></svg><span>stored unchanged<br><small>fetched 05:40</small></span></div><div class="tb2 acc"><b>Article archive</b><small>4 articles</small></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="leg">
+      <div class="leg-hd"><h3>Understand</h3><p>From prose to a typed event, linked to the investments it moves.</p></div>
+      <div class="steps">
+        <div class="step">
+          <div class="tx"><h4><span>03</span>Extract and classify</h4><p>A language model reads each article and marks who acted, what happened and where. A classifier tags its topics. This one is oil and shipping.</p></div>
+          <div class="fig fl"><span class="lab">wire service · 04:12</span><div class="toks"><span class="tok"><em>who</em>Iran</span><span class="tok acc"><em>what happened</em>threatens to close</span><span class="tok"><em>where</em>Strait of Hormuz</span></div><div class="conn down"><svg class="ic"><use href="#i-next"/></svg><span>becomes a typed link</span></div><div class="rel"><div class="tb2"><b>Iran</b></div><div class="conn acc"><svg class="ic"><use href="#i-next"/></svg><span>threatens to close<br><small>type: supply threat</small></span></div><div class="tb2"><b>Strait of Hormuz</b></div></div><div class="topics"><span class="lab">matches topics</span><span class="tb2 acc sm"><b>Oil</b></span><span class="tb2 acc sm"><b>Shipping</b></span></div></div>
+        </div>
+        <div class="step">
+          <div class="tx"><h4><span>04</span>Merge</h4><p>Four outlets, one event. Articles about the same development merge and the outlet count is kept. “Tehran” joins “Iran”; “the strait” joins “Strait of Hormuz”.</p></div>
+          <div class="fig fl"><div class="g3"><div class="cards"><div class="sc"><small>wire service</small>“Iran”, “Strait of Hormuz”</div><div class="sc"><small>UK broadcaster</small>“Tehran”, “the strait”</div><div class="sc"><small>business daily</small>“Iran”, “Hormuz”</div><div class="sc"><small>energy trade site</small>“Hormuz”</div></div><div class="conn v"><svg class="ic"><use href="#i-next"/></svg><span>merge</span></div><div class="tb2"><b>Hormuz closure threat</b><small>1 event · 4 outlets</small><div class="ents"><div><span class="lab">who</span>Iran<small>also “Tehran”</small></div><div><span class="lab">where</span>Strait of Hormuz<small>also “Hormuz”, “the strait”</small></div></div></div></div></div>
+        </div>
+        <div class="step">
+          <div class="tx"><h4><span>05</span>Link to investments</h4><p>A table kept by the team maps each type of event to the investments it moves, the direction and the reason. A person reviews every link. A threat to Gulf supply moves four.</p></div>
+          <div class="fig fl"><div class="g3"><div class="fl"><div class="tb2"><b>Hormuz closure threat</b></div><div class="conn down"><svg class="ic"><use href="#i-next"/></svg><span>is a</span></div><div class="tb2 dash"><b>Threat to Gulf supply</b><small>event type</small></div></div><div class="conn v"><svg class="ic"><use href="#i-next"/></svg></div><div class="invs"><div class="inv u"><svg class="ic"><use href="#i-up"/></svg><b>Crude oil</b><span>Less oil may reach the market</span></div><div class="inv u"><svg class="ic"><use href="#i-up"/></svg><b>LNG</b><span>A fifth of LNG trade uses the strait</span></div><div class="inv u"><svg class="ic"><use href="#i-up"/></svg><b>Crude tankers</b><span>Longer routes, costlier insurance</span></div><div class="inv d"><svg class="ic"><use href="#i-down"/></svg><b>Airlines</b><span>Jet fuel gets more expensive</span></div></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="leg">
+      <div class="leg-hd"><h3>Remember</h3><p>Every arrow knows when it was true. The graph can be replayed to any morning.</p></div>
+      <div class="steps">
+        <div class="step">
+          <div class="tx"><h4><span>06</span>Store with time</h4><p>Each link becomes an arrow carrying its direction, the day the event happened, the moment Newsleaf learned of it, and a weight that fades with age. For this type of event it halves every 14 days.</p><p>Arrows are never edited or deleted. A later story that weakens an earlier one is a new arrow between the two.</p></div>
+          <div class="fig fl"><div class="rel"><div class="tb2"><b>Hormuz closure threat</b><small>4 outlets</small></div><div class="conn u"><svg class="ic"><use href="#i-next"/></svg><span>pushes up</span></div><div class="tb2"><b>Crude oil</b></div></div><span class="lab">stored on this arrow</span><dl class="kv"><dt>Happened</dt><dd>Day 1</dd><dt>Learned</dt><dd>Day 1, 05:40</dd><dt>Weight</dt><dd><div class="decay"><i></i></div><div class="dax"><span>Day 1 · full</span><span>Day 8</span><span>Day 15 · half</span></div></dd></dl></div>
+        </div>
+        <div class="step full">
+          <div class="tx"><h4><span>07</span>Delta</h4><p>After each run Newsleaf lists what it added and what it weakened. That list is the delta, and it is what the morning issue is made of.</p></div>
+          <div class="runs" id="runs">
+            <div class="fig dfig">
+              <div class="seg" role="group" aria-label="Graph after each run">
+                <button class="run-btn" type="button" data-run="1" aria-pressed="false">Run 1</button>
+                <button class="run-btn" type="button" data-run="2" aria-pressed="false">Run 2</button>
+                <button class="run-btn" type="button" data-run="3" aria-pressed="true">Run 3</button>
+              </div>
+              <svg class="dc" viewBox="0 0 680 400" role="img" aria-label="The Hormuz chart after the selected run. Each event pushes the investments it affects; the talks weaken the Hormuz threat in Run 3.">
+                <defs>
+                  <marker id="d-up" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="13" markerHeight="13" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E9A553"/></marker>
+                  <marker id="d-down" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="13" markerHeight="13" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#9DAAF2"/></marker>
+                  <marker id="d-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="13" markerHeight="13" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4DB6A7"/></marker>
+                </defs>
+                <path class="land" d="M70 -20L80 0C110 60 160 100 215 130C255 150 272 178 322 189C382 201 470 182 700 160V-20Z"/>
+                <path class="land" d="M-20 420L0 400C40 330 100 300 170 272C220 252 250 258 280 236C310 214 360 210 400 200C470 182 560 190 700 180V420Z"/>
+                <path class="g dv d s" id="d-e2c" d="M52 214L412 74" marker-end="url(#d-down)"/>
+                <path class="g dv u" id="d-e1c" d="M300 206L420 76" marker-end="url(#d-up)"/>
+                <path class="g dv u" id="d-e1l" d="M300 206L548 136" marker-end="url(#d-up)"/>
+                <path class="g dv u" id="d-e1t" d="M300 206L500 296" marker-end="url(#d-up)"/>
+                <path class="g dv d" id="d-e1a" d="M300 206L118 330" marker-end="url(#d-down)"/>
+                <path class="g dv w" id="d-e3w" d="M212 70C250 116 272 160 293 196" marker-end="url(#d-acc)"/>
+                <g class="g" id="d-n1">
+                  <circle cx="300" cy="206" r="8" fill="#4DB6A7"/>
+                  <text class="nm" x="320" y="240">Hormuz closure threat</text><text class="mt" x="320" y="258">Day 1, 05:40 · 4 outlets</text>
+                  <g class="g" id="d-t1new"><rect class="tg n" x="320" y="266" width="44" height="18"/><text class="tt" x="342" y="279" text-anchor="middle">new</text></g>
+                  <g class="g" id="d-t1weak"><rect class="tg w" x="320" y="266" width="76" height="18"/><text class="tt" x="358" y="279" text-anchor="middle">weakened</text></g>
+                </g>
+                <g class="g" id="d-n2">
+                  <circle cx="46" cy="216" r="7" fill="none" stroke="#9DAAF2" stroke-width="2"/>
+                  <text class="nm" x="20" y="250">Offshore discovery</text><text class="mt" x="20" y="268">Day 2, 04:30 · 2 outlets</text>
+                  <g class="g" id="d-t2new"><rect class="tg n" x="20" y="276" width="44" height="18"/><text class="tt" x="42" y="289" text-anchor="middle">new</text></g>
+                </g>
+                <g class="g" id="d-n3">
+                  <circle cx="206" cy="62" r="7" fill="none" stroke="#4DB6A7" stroke-width="2"/>
+                  <text class="nm" x="100" y="30">Iran–US talks</text><text class="mt" x="100" y="48">Day 3, 03:50 · 3 outlets</text>
+                  <g class="g" id="d-t3new"><rect class="tg n" x="230" y="54" width="44" height="18"/><text class="tt" x="252" y="67" text-anchor="middle">new</text></g>
+                </g>
+                <text class="iv" x="428" y="40">Crude oil</text><text class="s-m s-up" id="d-i1" x="428" y="60">up, easing; slow push down</text>
+                <text class="iv" x="556" y="114">LNG</text><text class="s-m s-up" id="d-i2" x="556" y="134">up, easing</text>
+                <text class="iv" x="470" y="326">Crude tankers</text><text class="s-m s-up" id="d-i3" x="470" y="346">up, easing</text>
+                <text class="iv" x="60" y="360">Airlines</text><text class="s-m s-down" id="d-i4" x="60" y="380">down, easing</text>
+              </svg>
+              <ul class="legend">
+                <li><span class="sw"></span>pushes up</li>
+                <li><span class="sw sw-down"></span>pushes down</li>
+                <li><span class="sw sw-slow"></span>slow effect</li>
+                <li><span class="sw sw-thin"></span>weakened</li>
+                <li><span class="sw sw-acc"></span>weakens</li>
+              </ul>
+
+            </div>
+            <div class="runinfo" aria-live="polite">
+              <p class="when" id="r-when"></p>
+              <p id="r-start"></p>
+              <ul class="chg" id="r-rows"></ul>
+              <p id="r-note"></p>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="tx"><h4><span>08</span>Publish</h4><p>At 06:00 on weekdays an editor checks the delta and it goes out as the issue. Search reads the whole graph, at any hour.</p></div>
+          <div class="fig fl"><div class="chain"><div class="tb2"><b>Graph</b></div><div class="conn"><svg class="ic"><use href="#i-next"/></svg></div><div class="tb2"><b>Delta</b><small>since the last issue</small></div><div class="conn"><svg class="ic"><use href="#i-next"/></svg></div><div class="tb2"><b>Editor</b><small>reviews it</small></div><div class="conn"><svg class="ic"><use href="#i-next"/></svg></div><div class="tb2 acc"><b>Issue</b><small>weekdays, 06:00</small></div></div><div class="chain"><div class="tb2"><b>Graph</b><small>all of it</small></div><div class="conn"><svg class="ic"><use href="#i-next"/></svg></div><div class="tb2 acc"><b>Search</b><small>any time</small></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="edge">
+  <div class="wrap">
+    <div class="sec-hd">
+      <h2>Others sell scores or opinions. Newsleaf sells a record.</h2>
+      <p class="lede">Every direction Newsleaf publishes is logged and scored against the price move that followed. The scorecard is public.</p>
+    </div>
+    <div class="cmp">
+      <div>
+        <h3>News analytics feeds</h3>
+        <dl><dt>For example</dt><dd>RavenPack, Bloomberg’s news sentiment data</dd><dt>Sold to</dt><dd>Funds with quantitative analysts</dd><dt>The buyer gets</dt><dd>Scores and data feeds for building trading models</dd><dt>Checked by</dt><dd>The buyer’s own backtests</dd></dl>
+      </div>
+      <div>
+        <h3>Paid energy newsletters</h3>
+        <dl><dt>For example</dt><dd>Doomberg, Energy Outlook Advisors</dd><dt>Sold to</dt><dd>Individual investors</dd><dt>The buyer gets</dt><dd>One writer’s analysis</dd><dt>Checked by</dt><dd>Usually nobody, systematically</dd></dl>
+      </div>
+      <div class="us">
+        <h3>Newsleaf</h3>
+        <dl><dt>Sold to</dt><dd>Individual investors and financial advisers</dd><dt>The buyer gets</dt><dd>A daily list of changes, with a direction for each affected investment</dd><dt>Checked by</dt><dd>Anyone, on the public scorecard</dd></dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="business" class="paper">
+  <div class="wrap">
+    <div class="sec-hd stack">
+      <h2>Priced under the incumbents until the record earns more.</h2>
+      <p class="lede">Newsleaf starts below the energy newsletters because it has no track record yet. The price rises once the scorecard covers a full year.</p>
+    </div>
+    <div class="biz">
+      <div>
+        <p class="price">$300 a year<small>or $30 a month, sold through Substack</small></p>
+        <div class="copy"><p>After <a href="https://support.substack.com/hc/en-us/articles/360037607131-How-much-does-Substack-cost">Substack’s 10% fee</a> and card fees, each $300 subscription pays Newsleaf about <strong>$259</strong>.</p></div>
+      </div>
+      <div class="pbars" aria-label="Annual subscription prices">
+        <div class="pb"><div class="nm"><a href="https://www.readless.app/blog/best-paid-substack-newsletters-2026">Large general Substacks</a></div><div class="tr"><i style="left:4.2%;width:14.1%"></i><b style="left:18.3%">$50–220</b></div></div>
+        <div class="pb us"><div class="nm">Newsleaf</div><div class="tr"><i style="left:0;width:25%"></i><b style="left:25%">$300</b></div></div>
+        <div class="pb"><div class="nm"><a href="https://newsletter.doomberg.com/about">Doomberg</a></div><div class="tr"><i style="left:0;width:33.3%"></i><b style="left:33.3%">$400</b></div></div>
+        <div class="pb"><div class="nm"><a href="https://anasalhajjieoa.substack.com/p/new-daily-energy-report-for-420-per">Energy Outlook Advisors</a><small>daily report, 2023 price</small></div><div class="tr"><i style="left:0;width:35%"></i><b style="left:35%">$420</b></div></div>
+        <div class="pb"><div class="nm"><a href="https://newsletter.doomberg.com/p/doomberg-pro">Doomberg Pro</a></div><div class="tr"><i style="left:0;width:100%"></i><b style="left:auto;right:8px;color:var(--ink)">$1,200</b></div></div>
+      </div>
+    </div>
+
+    <div class="be">
+      <h3>Forty annual subscribers cover the running costs.</h3>
+      <div class="axis-h" data-grow>
+        <div class="line"></div><div class="fill" style="transform:scaleX(1)"></div>
+        <div class="mk start" style="left:0"><b>0</b><i></i><span>Launch</span></div>
+        <div class="mk" style="left:40%"><b>40</b><i></i><span>Covers ~$10,200 a year in data, models and hosting from year two</span></div>
+        <div class="mk end" style="left:100%"><b>100</b><i></i><span>Month-12 target, about $25,900 a year</span></div>
+      </div>
+    </div>
+
+    <div class="route">
+      <h3>Build plan</h3>
+      <ol class="stops">
+        <li><span class="when">Months 1–3</span><span class="ships">The weekday issue</span><p>Watchers, archive, extraction, merging, the graph and the delta. The team writes each issue’s investment links by hand.</p><p class="test"><em>Tests</em>Does it catch the stories that move prices, and will readers pay?</p></li>
+        <li><span class="when">Months 4–6</span><span class="ships">A public scorecard</span><p>The event-type table, and a log scoring every published direction against the price move that followed.</p><p class="test"><em>Tests</em>How often the directions are right.</p></li>
+        <li><span class="when">Months 7–12</span><span class="ships">Search for subscribers</span><p>Search over the live graph.</p><p class="test"><em>Tests</em>Do subscribers come back between issues?</p></li>
+        <li><span class="when">After month 12</span><span class="ships">Data for funds</span><p>A feed of the graph’s full history, sold per contract, and a second sector.</p><p class="test"><em>Tests</em>Does the stored history sell on its own?</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="ask" class="ask paper">
+  <div class="wrap">
+    <div class="ask-top">
+      <div><p class="big">$25,000</p></div>
+      <div><h2>for the first twelve months.</h2><p class="lede" style="margin-top:16px">It covers data, models, hosting, legal work and the first subscribers while the weekday issue, the scorecard and search are built.</p></div>
+    </div>
+    <div class="stack" role="img" aria-label="Budget split across six items, totalling $25,000">
+      <i class="c1" style="flex:5388"></i><i class="c2" style="flex:3000"></i><i class="c3" style="flex:1800"></i><i class="c4" style="flex:5000"></i><i class="c5" style="flex:6000"></i><i class="c6" style="flex:3812"></i>
+    </div>
+    <ul class="alloc">
+      <li><i class="c1"></i><b>News data</b><span class="amt">$5,388</span><p><a href="https://newsapi.org/pricing">NewsAPI.org</a> Business plan at $449 a month</p></li>
+      <li><i class="c2"></i><b>Model usage</b><span class="amt">$3,000</span><p>$250 a month. Extracting 1,000 articles a day costs about $3.50 on <a href="https://www.anthropic.com/claude/haiku">Claude Haiku 4.5</a>; the rest writes issues and runs search</p></li>
+      <li><i class="c3"></i><b>Hosting and database</b><span class="amt">$1,800</span><p>About $150 a month</p></li>
+      <li><i class="c4"></i><b>Legal</b><span class="amt">$5,000</span><p>A <a href="https://www.contractscounsel.com/b/founders-agreement-cost">founders’ agreement</a> and a securities lawyer’s review of the issue and search</p></li>
+      <li><i class="c5"></i><b>First subscribers</b><span class="amt">$6,000</span><p>Free trials and advertising aimed at energy investors</p></li>
+      <li><i class="c6"></i><b>Contingency</b><span class="amt">$3,812</span><p>About 15%</p></li>
+    </ul>
+
+    <div class="team" id="team">
+      <div><h3>Sairam Krishnan</h3><p class="role">Product and technical lead</p><p>Designed the architecture and the build plan. Builds the product.</p></div>
+      <div><h3>Katera Mujadidi</h3><p class="role">CFO and venture capital specialist</p><p>Originated the Newsleaf idea.</p></div>
+      <div><p class="close">The graph starts recording on the first run. Every later product sells that history.</p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="wrap">
+  <span>Newsleaf publishes general information about news and markets. It does not give personal advice to buy or sell.</span>
+  <span>© 2026 Sairam Krishnan</span>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+
+  // example graph
+  var STATUS={"new":"New","weakened":"Weakened","unchanged":"Unchanged"};
+  var ORDER=["E1","E2","E3"];
+  var EVENTS={
+    E1:{day:1,title:"Iran threatens to close the Strait of Hormuz",short:"Hormuz closure threat",ref:"the Hormuz closure threat",meta:"4 outlets, first reported Day 1",weakenedBy:"E3"},
+    E2:{day:2,title:"Oil major reports a large offshore discovery",short:"Offshore discovery",ref:"the offshore discovery",meta:"2 outlets, first reported Day 2",note:"Found in a company filing with the SEC."},
+    E3:{day:3,title:"Iran and the US agree to reopen talks",short:"Iran–US talks",ref:"the Iran–US talks",meta:"3 outlets, first reported Day 3",note:"Weakens the Hormuz closure threat."}
+  };
+  var GROUPS={
+    oil:{name:"Crude oil",net:["Upward pressure on prices.","Upward pressure on prices, with a slow downward push from the discovery.","Upward pressure on prices, easing."],holds:["Brent futures","WTI futures","USO","BNO","XLE","Exxon Mobil","Chevron"]},
+    lng:{name:"LNG",net:["Upward pressure on prices.","Upward pressure on prices.","Upward pressure on prices, easing."],holds:["TTF gas futures","JKM LNG futures"]},
+    tankers:{name:"Crude tankers",net:["Upward pressure on day rates.","Upward pressure on day rates.","Upward pressure on day rates, easing."],holds:["tanker day rates","Frontline"]},
+    airlines:{name:"Airlines",net:["Downward pressure on shares.","Downward pressure on shares.","Downward pressure on shares, easing."],holds:["JETS","Delta Air Lines","United Airlines"]}
+  };
+  var EFFECTS=[
+    {e:"E1",g:"oil",dir:"up",why:"About a fifth of the oil the world uses passes through the strait. A threat to close it raises the price of supply that might not arrive."},
+    {e:"E1",g:"lng",dir:"up",why:"About a fifth of the world’s LNG trade passes through the strait."},
+    {e:"E1",g:"tankers",dir:"up",why:"Ships wait or take longer routes and war-risk insurance costs more, so day rates rise."},
+    {e:"E1",g:"airlines",dir:"down",why:"Jet fuel prices follow crude, and fuel is one of an airline’s largest costs."},
+    {e:"E2",g:"oil",dir:"down",slow:true,why:"The discovery adds supply. First production is years away, so the effect is slow."},
+    {e:"E3",g:"oil",dir:"down",why:"Talks lower the chance that the strait closes."},
+    {e:"E3",g:"lng",dir:"down",why:"LNG cargoes through the strait are at less risk."},
+    {e:"E3",g:"tankers",dir:"down",why:"The risk premium in tanker rates and insurance shrinks."},
+    {e:"E3",g:"airlines",dir:"up",why:"Expected fuel costs fall."}
+  ];
+  var INST={
+    brent:{name:"Brent crude",g:"oil",note:"The main international crude benchmark."},
+    wti:{name:"WTI crude",g:"oil",note:"The main US crude benchmark."},
+    uso:{name:"United States Oil Fund",ticker:"USO",g:"oil",note:"A fund that tracks WTI crude futures."},
+    bno:{name:"United States Brent Oil Fund",ticker:"BNO",g:"oil",note:"A fund that tracks Brent crude futures."},
+    xle:{name:"Energy Select Sector SPDR Fund",ticker:"XLE",g:"oil",note:"A fund of large US energy companies. It tends to move with crude prices."},
+    xom:{name:"Exxon Mobil",ticker:"XOM",g:"oil",note:"An oil producer. Its shares tend to move with crude prices."},
+    cvx:{name:"Chevron",ticker:"CVX",g:"oil",note:"An oil producer. Its shares tend to move with crude prices."},
+    ttf:{name:"TTF gas futures",g:"lng",note:"The main European gas benchmark."},
+    jkm:{name:"JKM LNG futures",g:"lng",note:"The main Asian LNG benchmark."},
+    fro:{name:"Frontline",ticker:"FRO",g:"tankers",note:"A tanker operator."},
+    jets:{name:"U.S. Global Jets ETF",ticker:"JETS",g:"airlines",note:"A fund of airline shares."},
+    dal:{name:"Delta Air Lines",ticker:"DAL",g:"airlines",note:"An airline."},
+    ual:{name:"United Airlines",ticker:"UAL",g:"airlines",note:"An airline."}
+  };
+  var ENT={
+    hormuz:{name:"Strait of Hormuz",events:["E1"]},
+    iran:{name:"Iran",events:["E1","E3"]},
+    us:{name:"United States",events:["E3"]}
+  };
+  function statusAt(id,d){
+    var ev=EVENTS[id];
+    if(ev.day===d){return "new";}
+    if(ev.weakenedBy&&EVENTS[ev.weakenedBy].day===d){return "weakened";}
+    return "unchanged";
+  }
+  function noteAt(id,d){
+    var ev=EVENTS[id];
+    if(ev.weakenedBy&&EVENTS[ev.weakenedBy].day<=d){return "Weakened on Day "+EVENTS[ev.weakenedBy].day+" by the talks.";}
+    return ev.note||"";
+  }
+
+  // search vocabulary
+  var LEX=[],EXACT={};
+  function add(terms,type,id,kind,opt){
+    terms.split("|").forEach(function(t){
+      var e={t:t,type:type,id:id,kind:kind,tick:opt==="tick",cs:opt==="cs"};
+      LEX.push(e);if(!EXACT[t]){EXACT[t]=e;}
+    });
+  }
+  add("oil|crude|crude oil","g","oil","topic");
+  add("petroleum|gasoline|petrol|fuel|gas prices|barrel|energy|energy stocks|oil stocks|oil majors|oil producers","g","oil","related term");
+  add("brent|brent crude","i","brent","benchmark");
+  add("wti|west texas","i","wti","benchmark");
+  add("uso","i","uso","ticker","tick");add("bno","i","bno","ticker","tick");add("xle","i","xle","ticker","tick");
+  add("xom","i","xom","ticker","tick");add("exxon|exxon mobil|exxonmobil","i","xom","company");
+  add("cvx","i","cvx","ticker","tick");add("chevron","i","cvx","company");
+  add("lng|natural gas|natgas|gas","g","lng","topic");
+  add("ttf","i","ttf","benchmark","tick");add("jkm","i","jkm","benchmark","tick");
+  add("shipping|tanker|tankers","g","tankers","topic");
+  add("ship|ships|vessel|vessels|freight|war risk|insurance","g","tankers","related term");
+  add("fro","i","fro","ticker","tick");add("frontline","i","fro","company");
+  add("airline|airlines","g","airlines","topic");
+  add("aviation|flight|flights|plane|planes|air travel|jet|jet fuel","g","airlines","related term");
+  add("jets","i","jets","ticker","tick");add("dal","i","dal","ticker","tick");add("ual","i","ual","ticker","tick");
+  add("delta|delta air lines","i","dal","company");add("united|united airlines","i","ual","company");
+  add("hormuz|strait of hormuz|strait|persian gulf|gulf","p","hormuz","place");
+  add("iran|tehran|iranian","p","iran","country");
+  add("united states|usa|washington|america|american","p","us","country");add("us","p","us","country","cs");
+  add("threat|closure|blockade","e","E1","event");
+  add("discovery|offshore|oil find|oil field","e","E2","event");
+  add("talks|negotiations|diplomacy","e","E3","event");
+  add("changed|change|changes|new|latest|update|updates|overnight|news|summary|overview|headlines|events","x","delta","");
+
+  var STOP={};
+  ("a an the is are was were be been am to of for in on at as by with and or but if so my me i we our you your it its this that these those there here " +
+   "should would could can will do does did has have had what which who whom when where why how about happening happens going goes tell show give get see " +
+   "affect affects affected affecting impact impacts hit hits hurt hurts mean means stock stocks share shares price prices rate rates market markets cost costs " +
+   "worry worried concerned right now much many more less any some up down higher lower high low rise rises rising rose fall falls falling fell drop drops dropping " +
+   "jump jumps move moves moving moved doing please versus vs than from into over under between because after before still again us since").split(" ").forEach(function(w){STOP[w]=1;});
+  var DAYNUM={"1":1,"2":2,"3":3,"one":1,"two":2,"three":3};
+
+  // edit distance, a swapped pair of letters counts as one error
+  function dist(a,b){
+    var m=a.length,n=b.length,d=[],i,j,c;
+    for(i=0;i<=m;i++){d[i]=[i];}
+    for(j=0;j<=n;j++){d[0][j]=j;}
+    for(i=1;i<=m;i++){for(j=1;j<=n;j++){
+      c=a.charAt(i-1)===b.charAt(j-1)?0:1;
+      d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+c);
+      if(i>1&&j>1&&a.charAt(i-1)===b.charAt(j-2)&&a.charAt(i-2)===b.charAt(j-1)){d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1);}
+    }}
+    return d[m][n];
+  }
+  function single(e){return !e.tick&&!e.cs&&e.t.indexOf(" ")<0;}
+  function completion(w){
+    var found=null,clash=false;
+    LEX.forEach(function(e){
+      if(!single(e)||e.t.length<=w.length||e.t.indexOf(w)!==0){return;}
+      if(found&&(found.type!==e.type||found.id!==e.id)){clash=true;}
+      if(!found){found=e;}
+    });
+    return clash?null:found;
+  }
+  function fuzzy(w){
+    var max=w.length>=7?2:1,best=null,bd=99;
+    LEX.forEach(function(e){
+      if(!single(e)||e.t.length<4||e.t.charAt(0)!==w.charAt(0)){return;}
+      if(Math.abs(e.t.length-w.length)>max||(w.length===3&&e.t.length!==4)){return;}
+      var d=dist(w,e.t);
+      if(d<=max&&d<bd){bd=d;best=e;}
+    });
+    return best;
+  }
+  function parse(q){
+    var raw=q.match(/[A-Za-z0-9]+(?:['’][A-Za-z]+)?/g)||[];
+    var norm=raw.map(function(t){return t.toLowerCase().replace(/['’]s$/,"").replace(/['’]/g,"");});
+    var refs=[],unknown=[],seen={},day=0,dayS="",i=0,n,hit,phrase,e,surface,w,st;
+    while(i<norm.length){
+      w=norm[i];
+      if(w==="day"&&DAYNUM[norm[i+1]]){day=DAYNUM[norm[i+1]];dayS="Day "+day;i+=2;continue;}
+      if(w==="yesterday"){day=2;dayS=raw[i];i++;continue;}
+      if(w==="today"){day=3;dayS=raw[i];i++;continue;}
+      hit=null;
+      for(n=3;n>=1&&!hit;n--){
+        if(i+n>norm.length){continue;}
+        phrase=norm.slice(i,i+n).join(" ");
+        surface=raw.slice(i,i+n).join(" ");
+        e=EXACT[phrase];
+        if(e&&(!e.cs||surface===surface.toUpperCase())){hit={e:e,n:n,how:""};}
+      }
+      if(!hit){
+        if(STOP[w]){i++;continue;}
+        st=w.length>3?(EXACT[w.replace(/s$/,"")]||EXACT[w.replace(/es$/,"")]):null;
+        if(st&&!st.cs){hit={e:st,n:1,how:""};}
+        if(!hit&&w.length>=3){e=completion(w);if(e){hit={e:e,n:1,how:"partial word"};}}
+        if(!hit&&w.length>=3){e=fuzzy(w);if(e){hit={e:e,n:1,how:"spelling corrected"};}}
+      }
+      if(hit){
+        surface=raw.slice(i,i+hit.n).join(" ");
+        if(!seen[hit.e.type+hit.e.id]){seen[hit.e.type+hit.e.id]=1;refs.push({e:hit.e,s:surface,how:hit.how});}
+        i+=hit.n;
+      }else{unknown.push(raw[i]);i++;}
+    }
+    return {refs:refs,unknown:unknown,day:day,dayS:dayS};
+  }
+  function refName(e){
+    if(e.type==="g"){return GROUPS[e.id].name;}
+    if(e.type==="i"){return INST[e.id].name;}
+    if(e.type==="p"){return ENT[e.id].name;}
+    if(e.type==="e"){return EVENTS[e.id].short;}
+    return "changes since the last issue";
+  }
+
+  // rendering
+  function arrow(dir){return '<svg class="ic"><use href="#i-'+(dir==="up"?"up":"down")+'"/></svg>';}
+  function status(s){return '<span class="st '+s+'">'+STATUS[s]+'</span>';}
+  function lower(s){return s.charAt(0).toLowerCase()+s.slice(1);}
+  function evRow(f,d){
+    var ev=EVENTS[f.e];
+    return '<li><span class="dir '+f.dir+'">'+arrow(f.dir)+(f.dir==="up"?" Up":" Down")+(f.slow?", slowly":"")+'</span>'+
+      '<div><div class="evt">'+esc(ev.title)+status(statusAt(f.e,d))+'</div>'+
+      '<div class="why">'+esc(f.why)+'</div><div class="meta">'+esc(ev.meta)+'</div></div></li>';
+  }
+  function groupBlock(gid,inst,evs,missing,names,d){
+    var g=GROUPS[gid],h='<div class="blk">',net=g.net[d-1];
+    var rows=EFFECTS.filter(function(f){return f.g===gid&&EVENTS[f.e].day<=d&&(!evs||evs.indexOf(f.e)>-1);});
+    if(inst){
+      h+='<h3>'+esc(inst.name)+(inst.ticker?' ('+inst.ticker+')':'')+'</h3><p class="sub">'+esc(inst.note)+'</p>';
+      h+='<p class="net">'+esc(g.name)+': '+esc(lower(net))+'</p>';
+    }else{
+      h+='<h3>'+esc(g.name)+'</h3><p class="net">'+esc(net)+'</p>';
+    }
+    if(evs&&missing){h+='<p>'+esc(missing)+'</p>';}
+    else if(evs&&!rows.length){h+='<p>The sample graph has no link between '+esc(names)+' and '+esc(lower(g.name))+'.</p>';}
+    else if(evs){h+='<p class="sub">Showing only events linked to '+esc(names)+'.</p>';}
+    if(rows.length&&!(evs&&missing)){h+='<ul class="evs">'+rows.map(function(f){return evRow(f,d);}).join("")+'</ul>';}
+    if(!evs&&!inst){h+='<p class="holds">Applies to '+esc(g.holds.join(", "))+'.</p>';}
+    return h+'</div>';
+  }
+  function eventBlock(id,d){
+    var ev=EVENTS[id],note=noteAt(id,d);
+    var fx=EFFECTS.filter(function(f){return f.e===id;}).map(function(f){
+      return '<span class="dir '+f.dir+'">'+arrow(f.dir)+' '+esc(GROUPS[f.g].name)+(f.slow?", slowly":"")+'</span>';
+    }).join("");
+    return '<div class="blk"><h3>'+esc(ev.title)+status(statusAt(id,d))+'</h3><p class="sub">'+esc(ev.meta)+'.'+(note?' '+esc(note):'')+'</p><div class="fx">'+fx+'</div></div>';
+  }
+  function topLine(p,d){
+    var h='<div class="res-top"><div class="read">',parts=[];
+    p.refs.forEach(function(r){
+      var name=refName(r.e),label=r.how||r.e.kind;
+      var same=r.s.toLowerCase()===name.toLowerCase();
+      parts.push('<span class="rd"><b>'+esc(same?name:r.s)+'</b>'+(same?'':' → '+esc(name))+(label?'<i>'+label+'</i>':'')+'</span>');
+    });
+    if(p.day){
+      parts.push('<span class="rd"><b>'+esc(p.dayS)+'</b>'+(p.dayS==="Day "+p.day?'':' → Day '+p.day)+'<i>point in time</i></span>');
+    }
+    if(parts.length){h+='<span>Read as</span>'+parts.join("");}
+    return h+'</div><span>Graph as of Day '+d+', 06:00 <span class="tag">Sample data</span></span></div>';
+  }
+
+  var qEl=document.getElementById("q"),out=document.getElementById("result"),chips=document.querySelectorAll(".chip");
+  function render(){
+    var q=qEl.value,p=parse(q),d=p.day||3,groups=[],lead={},evE=[],evP=[],namesE=[],namesP=[],intent=false,evs,names,seenEvs,missing="",h;
+    function addTo(list,id){if(list.indexOf(id)<0){list.push(id);}}
+    p.refs.forEach(function(r){
+      var e=r.e,g;
+      if(e.type==="g"){addTo(groups,e.id);}
+      else if(e.type==="i"){g=INST[e.id].g;if(groups.indexOf(g)<0){groups.push(g);lead[g]=INST[e.id];}}
+      else if(e.type==="e"){addTo(evE,e.id);namesE.push(EVENTS[e.id].ref);}
+      else if(e.type==="p"){ENT[e.id].events.forEach(function(id){addTo(evP,id);});namesP.push(ENT[e.id].name);}
+      else{intent=true;}
+    });
+    evs=evE.length?evE:evP;
+    names=(evE.length?namesE:namesP).join(" and ");
+    seenEvs=evs.filter(function(id){return EVENTS[id].day<=d;});
+    if(evs.length&&!seenEvs.length){
+      missing=evE.length?"The graph as of Day "+d+" did not yet contain "+names+".":"The graph as of Day "+d+" had no events linked to "+names+".";
+    }
+    chips.forEach(function(c){c.setAttribute("aria-pressed",String(c.getAttribute("data-q").toLowerCase()===q.trim().toLowerCase()));});
+    if(!p.refs.length&&!p.day&&q.replace(/[^A-Za-z0-9]/g,"").length<3){out.innerHTML='<p class="sub">Type a topic, company, ticker, place or question.</p>';return;}
+    h=topLine(p,d);
+    if(groups.length){groups.forEach(function(g){h+=groupBlock(g,lead[g],evs.length?evs:null,missing,names,d);});}
+    else if(evs.length){
+      if(missing){h+='<p>'+esc(missing)+'</p>';}
+      else{ORDER.forEach(function(id){if(seenEvs.indexOf(id)>-1){h+=eventBlock(id,d);}});}
+    }
+    else if(intent||p.day){
+      h+='<p class="net">'+(d===1?"First issue, Day 1":"Changes since the Day "+(d-1)+" issue")+'</p>';
+      ["new","weakened","unchanged"].forEach(function(s){ORDER.forEach(function(id){if(EVENTS[id].day<=d&&statusAt(id,d)===s){h+=eventBlock(id,d);}});});
+    }
+    else{h+='<p>Nothing in the sample graph matches “'+esc(q.trim())+'”. It holds three events that affect crude oil, LNG, crude tankers and airlines.</p>';}
+    out.innerHTML=h;
+  }
+  qEl.addEventListener("input",render);
+  chips.forEach(function(c){c.addEventListener("click",function(){qEl.value=c.getAttribute("data-q");render();});});
+  render();
+
+  // step 7, graph after each run
+  var RUNS={
+    1:{when:"Day 1, 05:40",start:"The first run, made when Newsleaf was switched on.",
+       rows:[["new","Hormuz closure threat, with arrows to four investments"]],
+       note:"With no earlier graph, everything in this run is new.",
+       off:["d-n2","d-e2c","d-n3","d-e3w"],thin:[],tags:["d-t1new"],
+       inst:[["pushed up","up"],["pushed up","up"],["pushed up","up"],["pushed down","down"]]},
+    2:{when:"Day 2, 04:30",start:"Started by two watchers that found new items between 04:18 and 04:26.",
+       rows:[["new","Offshore discovery, with a slow downward arrow to crude oil"],["unchanged","Hormuz closure threat"]],
+       note:"The run adds one event and one arrow. The rest of the graph stays as it was.",
+       off:["d-n3","d-e3w"],thin:[],tags:["d-t2new"],
+       inst:[["up; slow push down","up"],["pushed up","up"],["pushed up","up"],["pushed down","down"]]},
+    3:{when:"Day 3, 03:50",start:"Started by three watchers that found new items between 03:38 and 03:47.",
+       rows:[["new","Iran–US talks"],["new","An arrow from the talks that weakens the Hormuz threat"],["weakened","Hormuz closure threat and its four arrows"],["unchanged","Offshore discovery"]],
+       note:"The threat stays in the graph at a lower weight.",
+       off:[],thin:["d-e1c","d-e1l","d-e1t","d-e1a"],tags:["d-t3new","d-t1weak"],
+       inst:[["up, easing; slow push down","up"],["up, easing","up"],["up, easing","up"],["down, easing","down"]]}
+  };
+  var PARTS=["d-n1","d-n2","d-n3","d-e1c","d-e1l","d-e1t","d-e1a","d-e2c","d-e3w"];
+  var TAGS=["d-t1new","d-t1weak","d-t2new","d-t3new"];
+  var runBtns=document.querySelectorAll(".run-btn");
+  function showRun(n){
+    var R=RUNS[n];
+    PARTS.forEach(function(id){
+      var el=document.getElementById(id);
+      el.classList.toggle("off",R.off.indexOf(id)>-1);
+      el.classList.toggle("thin",R.thin.indexOf(id)>-1);
+    });
+    TAGS.forEach(function(id){document.getElementById(id).classList.toggle("off",R.tags.indexOf(id)<0);});
+    R.inst.forEach(function(s,i){
+      var el=document.getElementById("d-i"+(i+1));
+      el.textContent=s[0];
+      el.setAttribute("class","s-m "+(s[1]==="up"?"s-up":"s-down"));
+    });
+    document.getElementById("r-when").textContent="Run "+n+" · "+R.when;
+    document.getElementById("r-start").textContent=R.start;
+    document.getElementById("r-rows").innerHTML=R.rows.map(function(r){return '<li>'+status(r[0])+esc(r[1])+'</li>';}).join("");
+    document.getElementById("r-note").textContent=R.note;
+    runBtns.forEach(function(b){b.setAttribute("aria-pressed",String(+b.getAttribute("data-run")===n));});
+  }
+  runBtns.forEach(function(b){b.addEventListener("click",function(){showRun(+b.getAttribute("data-run"));});});
+  showRun(3);
+  // motion: replay the runs once, grow the bars on first view
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(!reduce&&"IntersectionObserver" in window){
+    var played=false,timers=[];
+    runBtns.forEach(function(b){b.addEventListener("click",function(){timers.forEach(clearTimeout);});});
+    new IntersectionObserver(function(es,o){es.forEach(function(e){
+      if(e.isIntersecting&&!played){played=true;o.disconnect();showRun(1);
+        timers.push(setTimeout(function(){showRun(2);},1700));
+        timers.push(setTimeout(function(){showRun(3);},3400));}
+    });},{threshold:.5}).observe(document.getElementById("runs"));
+    document.querySelectorAll("[data-grow]").forEach(function(g){
+      var bars=[].slice.call(g.querySelectorAll(".bar i,.fill"));
+      bars.forEach(function(b){b.style.transform="scaleX(0)";});
+      new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){o.disconnect();
+        requestAnimationFrame(function(){requestAnimationFrame(function(){bars.forEach(function(b){b.style.transform="";});});});}});},{threshold:.4}).observe(g);
+    });
+  }
+})();
+</script>
+</body>
+</html>

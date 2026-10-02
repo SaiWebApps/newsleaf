@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&family=Chivo+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}body{width:1440px;height:900px;background:#fff;color:#111;font-family:Chivo,sans-serif;overflow:hidden;position:relative;
+background-image:linear-gradient(#C9D3FF 1px,transparent 1px),linear-gradient(90deg,#C9D3FF 1px,transparent 1px);background-size:60px 60px}
+.cells{position:absolute;display:grid;grid-template-columns:repeat(5,60px);grid-auto-rows:60px}
+.cells i{display:block}.cells i.on{background:#111}.cells.b i.on{background:#2B50FF}
+.t{position:absolute;left:60px;top:60px;width:600px}
+.t .k{font-family:'Chivo Mono';font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#2B50FF}
+.t h1{font-size:72px;font-weight:900;line-height:.96;letter-spacing:-.025em;margin:20px 0}
+.t p{font-size:20px;line-height:1.45;max-width:520px;background:#fff}
+.lbl{position:absolute;font-family:'Chivo Mono';font-size:14px;background:#fff;padding:4px 6px}
+.cta{position:absolute;left:60px;top:600px;display:flex;gap:0}.cta span{font-weight:700;font-size:17px;padding:18px 26px;border:2px solid #111;background:#fff}.cta span:first-child{background:#111;color:#fff}
+</style></head><body>
+<div class="t"><div class="k">Newsleaf · 06:00 · Day 3</div><h1>One headline.<br>Opposite trades.</h1><p>Newsleaf reads energy news for investors and reports what changed since yesterday, and which way it pushes oil, gas, shipping and airlines.</p></div>
+<div class="cta"><span>See today's issue</span><span>The ask: $25k</span></div>
+<div class="cells" style="left:780px;top:120px" id="u"></div>
+<div class="cells b" style="left:1140px;top:120px" id="d"></div>
+<div class="lbl" style="left:780px;top:740px">↑ Crude · LNG · Tankers</div>
+<div class="lbl" style="left:1140px;top:740px;color:#2B50FF">↓ Airlines</div>
+<script>
+var U=["00100","01110","11111","00100","00100","00100","00100","00100","00100","00100"],D=U.slice().reverse().map(function(r){return r}).map(function(r,i){return ["00100","00100","00100","00100","00100","00100","00100","11111","01110","00100"][i]});
+function f(id,m){var e=document.getElementById(id);m.forEach(function(r){r.split("").forEach(function(c){var i=document.createElement("i");if(c==="1")i.className="on";e.appendChild(i)})})}
+f("u",U);f("d",D);
+</script></body></html>
