@@ -1,0 +1,520 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-02T12:00:00Z",
+  "title": "Design System: Newsleaf",
+  "extensions": {
+    "colorMeta": {
+      "chart-ground": {
+        "role": "neutral",
+        "displayName": "Night Sea",
+        "canonical": "#0E1614",
+        "oklch": "oklch(19.1% 0.013 177.8)",
+        "cssVar": "--bg",
+        "tonalRamp": [
+          "oklch(15% 0.013 177.8)",
+          "oklch(26% 0.013 177.8)",
+          "oklch(38% 0.013 177.8)",
+          "oklch(50% 0.013 177.8)",
+          "oklch(62% 0.013 177.8)",
+          "oklch(74% 0.013 177.8)",
+          "oklch(85% 0.013 177.8)",
+          "oklch(95% 0.013 177.8)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Title Block Green",
+        "canonical": "#15201D",
+        "oklch": "oklch(23.2% 0.017 176.1)",
+        "cssVar": "--surface",
+        "tonalRamp": [
+          "oklch(15% 0.017 176.1)",
+          "oklch(26% 0.017 176.1)",
+          "oklch(38% 0.017 176.1)",
+          "oklch(50% 0.017 176.1)",
+          "oklch(62% 0.017 176.1)",
+          "oklch(74% 0.017 176.1)",
+          "oklch(85% 0.017 176.1)",
+          "oklch(95% 0.017 176.1)"
+        ]
+      },
+      "surface-raised": {
+        "role": "neutral",
+        "displayName": "Raised Shelf",
+        "canonical": "#1C2926",
+        "oklch": "oklch(26.8% 0.019 179.0)",
+        "cssVar": "--surface-2",
+        "tonalRamp": [
+          "oklch(15% 0.019 179.0)",
+          "oklch(26% 0.019 179.0)",
+          "oklch(38% 0.019 179.0)",
+          "oklch(50% 0.019 179.0)",
+          "oklch(62% 0.019 179.0)",
+          "oklch(74% 0.019 179.0)",
+          "oklch(85% 0.019 179.0)",
+          "oklch(95% 0.019 179.0)"
+        ]
+      },
+      "grid-line": {
+        "role": "neutral",
+        "displayName": "Chart Grid",
+        "canonical": "#16221F",
+        "oklch": "oklch(24.0% 0.018 177.5)",
+        "cssVar": "--grid",
+        "tonalRamp": [
+          "oklch(15% 0.018 177.5)",
+          "oklch(26% 0.018 177.5)",
+          "oklch(38% 0.018 177.5)",
+          "oklch(50% 0.018 177.5)",
+          "oklch(62% 0.018 177.5)",
+          "oklch(74% 0.018 177.5)",
+          "oklch(85% 0.018 177.5)",
+          "oklch(95% 0.018 177.5)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline Rule",
+        "canonical": "#2B3935",
+        "oklch": "oklch(33.1% 0.020 175.7)",
+        "cssVar": "--rule",
+        "tonalRamp": [
+          "oklch(15% 0.020 175.7)",
+          "oklch(26% 0.020 175.7)",
+          "oklch(38% 0.020 175.7)",
+          "oklch(50% 0.020 175.7)",
+          "oklch(62% 0.020 175.7)",
+          "oklch(74% 0.020 175.7)",
+          "oklch(85% 0.020 175.7)",
+          "oklch(95% 0.020 175.7)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Chart Ink",
+        "canonical": "#E3EBE8",
+        "oklch": "oklch(93.3% 0.009 171.8)",
+        "cssVar": "--ink",
+        "tonalRamp": [
+          "oklch(15% 0.009 171.8)",
+          "oklch(26% 0.009 171.8)",
+          "oklch(38% 0.009 171.8)",
+          "oklch(50% 0.009 171.8)",
+          "oklch(62% 0.009 171.8)",
+          "oklch(74% 0.009 171.8)",
+          "oklch(85% 0.009 171.8)",
+          "oklch(95% 0.009 171.8)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Sounding Grey",
+        "canonical": "#97A7A2",
+        "oklch": "oklch(71.4% 0.019 175.1)",
+        "cssVar": "--muted",
+        "tonalRamp": [
+          "oklch(15% 0.019 175.1)",
+          "oklch(26% 0.019 175.1)",
+          "oklch(38% 0.019 175.1)",
+          "oklch(50% 0.019 175.1)",
+          "oklch(62% 0.019 175.1)",
+          "oklch(74% 0.019 175.1)",
+          "oklch(85% 0.019 175.1)",
+          "oklch(95% 0.019 175.1)"
+        ]
+      },
+      "weak": {
+        "role": "neutral",
+        "displayName": "Faded Line",
+        "canonical": "#5F6E6A",
+        "oklch": "oklch(52.4% 0.019 177.7)",
+        "cssVar": "--weak",
+        "tonalRamp": [
+          "oklch(15% 0.019 177.7)",
+          "oklch(26% 0.019 177.7)",
+          "oklch(38% 0.019 177.7)",
+          "oklch(50% 0.019 177.7)",
+          "oklch(62% 0.019 177.7)",
+          "oklch(74% 0.019 177.7)",
+          "oklch(85% 0.019 177.7)",
+          "oklch(95% 0.019 177.7)"
+        ]
+      },
+      "teal": {
+        "role": "primary",
+        "displayName": "Chart Teal",
+        "canonical": "#4DB6A7",
+        "oklch": "oklch(71.1% 0.099 182.6)",
+        "cssVar": "--accent",
+        "tonalRamp": [
+          "oklch(15% 0.099 182.6)",
+          "oklch(26% 0.099 182.6)",
+          "oklch(38% 0.099 182.6)",
+          "oklch(50% 0.099 182.6)",
+          "oklch(62% 0.099 182.6)",
+          "oklch(74% 0.099 182.6)",
+          "oklch(85% 0.099 182.6)",
+          "oklch(95% 0.099 182.6)"
+        ]
+      },
+      "teal-ink": {
+        "role": "primary",
+        "displayName": "Abyss Ink",
+        "canonical": "#0B1412",
+        "oklch": "oklch(18.1% 0.014 179.3)",
+        "cssVar": "--accent-ink",
+        "tonalRamp": [
+          "oklch(15% 0.014 179.3)",
+          "oklch(26% 0.014 179.3)",
+          "oklch(38% 0.014 179.3)",
+          "oklch(50% 0.014 179.3)",
+          "oklch(62% 0.014 179.3)",
+          "oklch(74% 0.014 179.3)",
+          "oklch(85% 0.014 179.3)",
+          "oklch(95% 0.014 179.3)"
+        ]
+      },
+      "land": {
+        "role": "neutral",
+        "displayName": "Land Teal",
+        "canonical": "#17332E",
+        "oklch": "oklch(29.7% 0.035 180.8)",
+        "cssVar": "--land / --accent-soft",
+        "tonalRamp": [
+          "oklch(15% 0.035 180.8)",
+          "oklch(26% 0.035 180.8)",
+          "oklch(38% 0.035 180.8)",
+          "oklch(50% 0.035 180.8)",
+          "oklch(62% 0.035 180.8)",
+          "oklch(74% 0.035 180.8)",
+          "oklch(85% 0.035 180.8)",
+          "oklch(95% 0.035 180.8)"
+        ]
+      },
+      "amber-up": {
+        "role": "secondary",
+        "displayName": "Heading Amber",
+        "canonical": "#E9A553",
+        "oklch": "oklch(77.2% 0.127 69.0)",
+        "cssVar": "--up",
+        "tonalRamp": [
+          "oklch(15% 0.127 69.0)",
+          "oklch(26% 0.127 69.0)",
+          "oklch(38% 0.127 69.0)",
+          "oklch(50% 0.127 69.0)",
+          "oklch(62% 0.127 69.0)",
+          "oklch(74% 0.127 69.0)",
+          "oklch(85% 0.127 69.0)",
+          "oklch(95% 0.127 69.0)"
+        ]
+      },
+      "amber-up-bg": {
+        "role": "secondary",
+        "displayName": "Amber Shoal",
+        "canonical": "#3A2A15",
+        "oklch": "oklch(29.8% 0.041 72.7)",
+        "cssVar": "--up-bg",
+        "tonalRamp": [
+          "oklch(15% 0.041 72.7)",
+          "oklch(26% 0.041 72.7)",
+          "oklch(38% 0.041 72.7)",
+          "oklch(50% 0.041 72.7)",
+          "oklch(62% 0.041 72.7)",
+          "oklch(74% 0.041 72.7)",
+          "oklch(85% 0.041 72.7)",
+          "oklch(95% 0.041 72.7)"
+        ]
+      },
+      "periwinkle-down": {
+        "role": "tertiary",
+        "displayName": "Periwinkle Current",
+        "canonical": "#9DAAF2",
+        "oklch": "oklch(75.5% 0.105 275.7)",
+        "cssVar": "--down",
+        "tonalRamp": [
+          "oklch(15% 0.105 275.7)",
+          "oklch(26% 0.105 275.7)",
+          "oklch(38% 0.105 275.7)",
+          "oklch(50% 0.105 275.7)",
+          "oklch(62% 0.105 275.7)",
+          "oklch(74% 0.105 275.7)",
+          "oklch(85% 0.105 275.7)",
+          "oklch(95% 0.105 275.7)"
+        ]
+      },
+      "periwinkle-down-bg": {
+        "role": "tertiary",
+        "displayName": "Deep Indigo Shoal",
+        "canonical": "#1F2650",
+        "oklch": "oklch(28.7% 0.077 273.5)",
+        "cssVar": "--down-bg",
+        "tonalRamp": [
+          "oklch(15% 0.077 273.5)",
+          "oklch(26% 0.077 273.5)",
+          "oklch(38% 0.077 273.5)",
+          "oklch(50% 0.077 273.5)",
+          "oklch(62% 0.077 273.5)",
+          "oklch(74% 0.077 273.5)",
+          "oklch(85% 0.077 273.5)",
+          "oklch(95% 0.077 273.5)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline inside the title block. Uppercase, balanced."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Stand-alone figures (price, flow drop); the ask amount scales to clamp(4.5rem,13vw,10rem) at 0.85 in teal."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headlines, uppercase, max 20ch."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Sub-heads, panel and step titles, uppercase."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading copy, mostly muted, 52-68ch."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Muted paragraph beside a section headline, max 60ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav, tags, definition terms, legend and figure labels; uppercase."
+      },
+      "measure": {
+        "displayName": "Measure",
+        "purpose": "Timestamps, counts, sources, bar values. Measurements only."
+      }
+    },
+    "shadows": [],
+    "strokes": [
+      {
+        "name": "frame",
+        "value": "1.5px solid #4DB6A7",
+        "purpose": "Title blocks and the top rule of ruled groups."
+      },
+      {
+        "name": "rule",
+        "value": "1px solid #2B3935",
+        "purpose": "Dividers, seams, chip/tag/input borders."
+      },
+      {
+        "name": "nav-glass",
+        "value": "background: color-mix(in srgb, #0E1614 92%, transparent); backdrop-filter: blur(8px)",
+        "purpose": "Sticky nav only."
+      },
+      {
+        "name": "chart-paper",
+        "value": "linear-gradient(#16221F 1px, transparent 1px), linear-gradient(90deg, #16221F 1px, transparent 1px) / 48px 48px",
+        "purpose": "Hero chart grid."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "The only easing in the system."
+      },
+      {
+        "name": "vector-draw",
+        "value": "1.4s, stagger .12s",
+        "purpose": "Stroke-dash draw of chart vectors on load."
+      },
+      {
+        "name": "label-fade",
+        "value": ".8s, delay .9s",
+        "purpose": "Vector labels fade in after the draw."
+      },
+      {
+        "name": "control",
+        "value": ".3s",
+        "purpose": "Button fill and colour transitions (chips use .2s)."
+      },
+      {
+        "name": "replot",
+        "value": ".5-.6s",
+        "purpose": "Delta chart re-plot: opacity and stroke-width thinning."
+      },
+      {
+        "name": "bar-grow",
+        "value": "1.2-1.4s",
+        "purpose": "Bar and axis fills grow from the left."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "transition/animation: none",
+        "purpose": "All motion removed under prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "560px"
+      },
+      {
+        "name": "small",
+        "value": "620px"
+      },
+      {
+        "name": "nav-collapse",
+        "value": "820px"
+      },
+      {
+        "name": "stack",
+        "value": "900px"
+      },
+      {
+        "name": "wide-stack",
+        "value": "960px"
+      },
+      {
+        "name": "container",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid teal chart control for the main action.",
+      "html": "<a class=\"ds-btn ds-btn-solid\" href=\"#\">Read the morning issue</a>",
+      "css": ":host{--bg:#0E1614;--surface:#15201D;--surface-2:#1C2926;--ink:#E3EBE8;--muted:#97A7A2;--rule:#2B3935;--accent:#4DB6A7;--accent-ink:#0B1412;--accent-soft:#17332E;--up:#E9A553;--up-bg:#3A2A15;--down:#9DAAF2;--down-bg:#1F2650;--display:'Barlow Condensed','Arial Narrow',sans-serif;--sans:'Barlow',system-ui,sans-serif;--mono:'Spline Sans Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(.16,1,.3,1)} .ds-btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.08rem;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;padding:13px 20px;border:1.5px solid var(--accent);border-radius:0;cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)} .ds-btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px} .ds-btn-solid{background:var(--accent);color:var(--accent-ink)} .ds-btn-solid:hover{background:var(--ink);border-color:var(--ink);color:var(--accent-ink)}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Teal-framed secondary action.",
+      "html": "<a class=\"ds-btn ds-btn-outline\" href=\"#\">The ask: $25,000</a>",
+      "css": ":host{--bg:#0E1614;--surface:#15201D;--surface-2:#1C2926;--ink:#E3EBE8;--muted:#97A7A2;--rule:#2B3935;--accent:#4DB6A7;--accent-ink:#0B1412;--accent-soft:#17332E;--up:#E9A553;--up-bg:#3A2A15;--down:#9DAAF2;--down-bg:#1F2650;--display:'Barlow Condensed','Arial Narrow',sans-serif;--sans:'Barlow',system-ui,sans-serif;--mono:'Spline Sans Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(.16,1,.3,1)} .ds-btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.08rem;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;padding:13px 20px;border:1.5px solid var(--accent);border-radius:0;cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)} .ds-btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px} .ds-btn-outline{background:transparent;color:var(--accent)} .ds-btn-outline:hover{background:var(--accent-soft);color:var(--ink)}"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "Square search field on Night Sea with a teal caret.",
+      "html": "<input class=\"ds-input\" type=\"search\" placeholder=\"What is pushing crude oil up?\">",
+      "css": ":host{--bg:#0E1614;--surface:#15201D;--surface-2:#1C2926;--ink:#E3EBE8;--muted:#97A7A2;--rule:#2B3935;--accent:#4DB6A7;--accent-ink:#0B1412;--accent-soft:#17332E;--up:#E9A553;--up-bg:#3A2A15;--down:#9DAAF2;--down-bg:#1F2650;--display:'Barlow Condensed','Arial Narrow',sans-serif;--sans:'Barlow',system-ui,sans-serif;--mono:'Spline Sans Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(.16,1,.3,1)} .ds-input{font-family:var(--sans);font-size:1.15rem;padding:14px 16px;border:1px solid var(--rule);border-radius:0;background:var(--bg);color:var(--ink);caret-color:var(--accent);min-width:280px} .ds-input::placeholder{color:var(--muted)} .ds-input:focus-visible{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}"
+    },
+    {
+      "name": "Example Chips",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Square query chips; pressed fills teal.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\">Crude oil</button><button class=\"ds-chip\" aria-pressed=\"false\">Airlines</button><button class=\"ds-chip\" aria-pressed=\"false\">As of Day 1</button></div>",
+      "css": ":host{--bg:#0E1614;--surface:#15201D;--surface-2:#1C2926;--ink:#E3EBE8;--muted:#97A7A2;--rule:#2B3935;--accent:#4DB6A7;--accent-ink:#0B1412;--accent-soft:#17332E;--up:#E9A553;--up-bg:#3A2A15;--down:#9DAAF2;--down-bg:#1F2650;--display:'Barlow Condensed','Arial Narrow',sans-serif;--sans:'Barlow',system-ui,sans-serif;--mono:'Spline Sans Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(.16,1,.3,1)} .ds-chips{display:flex;gap:8px;flex-wrap:wrap} .ds-chip{font-family:var(--sans);font-size:.9rem;padding:6px 11px;border:1px solid var(--rule);border-radius:0;background:var(--bg);color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s} .ds-chip:hover{border-color:var(--accent)} .ds-chip:focus-visible{outline:2px solid var(--accent);outline-offset:3px} .ds-chip[aria-pressed=\"true\"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Sticky translucent chart bar with vector-cross brand mark.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-brand\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" aria-hidden=\"true\"><path d=\"M12 12L21 3\" stroke=\"#E9A553\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><path d=\"M12 12L3 21\" stroke=\"#9DAAF2\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><circle cx=\"12\" cy=\"12\" r=\"3.5\" fill=\"#4DB6A7\"/></svg>Newsleaf</a><nav class=\"ds-links\"><a href=\"#\">Problem</a><a href=\"#\">The issue</a><a href=\"#\">How it works</a></nav><a class=\"ds-ask\" href=\"#\">The ask</a></header>",
+      "css": ":host{--bg:#0E1614;--surface:#15201D;--surface-2:#1C2926;--ink:#E3EBE8;--muted:#97A7A2;--rule:#2B3935;--accent:#4DB6A7;--accent-ink:#0B1412;--accent-soft:#17332E;--up:#E9A553;--up-bg:#3A2A15;--down:#9DAAF2;--down-bg:#1F2650;--display:'Barlow Condensed','Arial Narrow',sans-serif;--sans:'Barlow',system-ui,sans-serif;--mono:'Spline Sans Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(.16,1,.3,1)} .ds-nav{display:flex;align-items:center;gap:28px;height:58px;padding:0 24px;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)} .ds-brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.5rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);text-decoration:none} .ds-links{display:flex;gap:22px;font-family:var(--display);font-weight:600;font-size:1.02rem;letter-spacing:.06em;text-transform:uppercase} .ds-links a{color:var(--muted);text-decoration:none} .ds-links a:hover{color:var(--ink)} .ds-links a:focus-visible,.ds-ask:focus-visible{outline:2px solid var(--accent);outline-offset:3px} .ds-ask{margin-left:auto;font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;padding:8px 14px;border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-ink);transition:background .3s var(--ease)} .ds-ask:hover{background:var(--ink);border-color:var(--ink)}"
+    },
+    {
+      "name": "Chart Title Block",
+      "kind": "card",
+      "refersTo": "title-block",
+      "description": "The framed panel: surface fill, 1.5px teal frame, no radius, no shadow.",
+      "html": "<div class=\"ds-block\"><h3>One headline. Opposite trades.</h3><p>Newsleaf tells investors which way each energy story pushes their holdings.</p><p class=\"ds-src\">Example event · Day 1, 05:40 · 4 outlets</p></div>",
+      "css": ":host{--bg:#0E1614;--surface:#15201D;--surface-2:#1C2926;--ink:#E3EBE8;--muted:#97A7A2;--rule:#2B3935;--accent:#4DB6A7;--accent-ink:#0B1412;--accent-soft:#17332E;--up:#E9A553;--up-bg:#3A2A15;--down:#9DAAF2;--down-bg:#1F2650;--display:'Barlow Condensed','Arial Narrow',sans-serif;--sans:'Barlow',system-ui,sans-serif;--mono:'Spline Sans Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(.16,1,.3,1)} .ds-block{border:1.5px solid var(--accent);background:var(--surface);padding:clamp(22px,3vw,34px);max-width:520px;color:var(--ink);font-family:var(--sans);font-size:1.12rem;line-height:1.55} .ds-block h3{margin:0 0 16px;font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:2.6rem;line-height:.95;letter-spacing:-.005em} .ds-block p{margin:0} .ds-src{font-family:var(--display);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:.9rem;color:var(--muted);margin-top:22px!important;padding-top:14px;border-top:1px solid var(--rule)}"
+    },
+    {
+      "name": "Direction Badges",
+      "kind": "chip",
+      "refersTo": "direction-up",
+      "description": "Up and down pressure badges with arrow icons.",
+      "html": "<div class=\"ds-dirs\"><span class=\"ds-dir ds-up\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path d=\"M8 14V3M3.5 7.5L8 3l4.5 4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>Up</span><span class=\"ds-dir ds-down\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path d=\"M8 2v11M3.5 8.5L8 13l4.5-4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>Down</span></div>",
+      "css": ":host{--bg:#0E1614;--surface:#15201D;--surface-2:#1C2926;--ink:#E3EBE8;--muted:#97A7A2;--rule:#2B3935;--accent:#4DB6A7;--accent-ink:#0B1412;--accent-soft:#17332E;--up:#E9A553;--up-bg:#3A2A15;--down:#9DAAF2;--down-bg:#1F2650;--display:'Barlow Condensed','Arial Narrow',sans-serif;--sans:'Barlow',system-ui,sans-serif;--mono:'Spline Sans Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(.16,1,.3,1)} .ds-dirs{display:flex;gap:8px} .ds-dir{display:inline-flex;align-items:center;gap:.25em;font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:0} .ds-dir svg{width:1em;height:1em} .ds-up{background:var(--up-bg);color:var(--up)} .ds-down{background:var(--down-bg);color:var(--down)}"
+    },
+    {
+      "name": "Status Markers",
+      "kind": "custom",
+      "refersTo": "status",
+      "description": "New, weakened and unchanged markers with chart point symbols.",
+      "html": "<div class=\"ds-sts\"><span class=\"ds-st ds-new\">New</span><span class=\"ds-st ds-weak\">Weakened</span><span class=\"ds-st ds-same\">Unchanged</span></div>",
+      "css": ":host{--bg:#0E1614;--surface:#15201D;--surface-2:#1C2926;--ink:#E3EBE8;--muted:#97A7A2;--rule:#2B3935;--accent:#4DB6A7;--accent-ink:#0B1412;--accent-soft:#17332E;--up:#E9A553;--up-bg:#3A2A15;--down:#9DAAF2;--down-bg:#1F2650;--display:'Barlow Condensed','Arial Narrow',sans-serif;--sans:'Barlow',system-ui,sans-serif;--mono:'Spline Sans Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(.16,1,.3,1)} .ds-sts{display:flex;gap:18px} .ds-st{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase} .ds-st::before{content:'';width:10px;height:10px;border-radius:50%} .ds-new{color:var(--accent)} .ds-new::before{background:var(--accent)} .ds-weak{color:var(--up)} .ds-weak::before{background:linear-gradient(90deg,var(--up) 50%,transparent 50%);box-shadow:inset 0 0 0 1.5px var(--up)} .ds-same{color:var(--muted)} .ds-same::before{box-shadow:inset 0 0 0 1.5px var(--muted)}"
+    },
+    {
+      "name": "Run Toggle",
+      "kind": "custom",
+      "refersTo": "run-toggle",
+      "description": "Segmented teal control that re-plots the delta chart.",
+      "html": "<div class=\"ds-seg\"><button class=\"ds-run\" aria-pressed=\"true\">Run 1</button><button class=\"ds-run\" aria-pressed=\"false\">Run 2</button><button class=\"ds-run\" aria-pressed=\"false\">Run 3</button></div>",
+      "css": ":host{--bg:#0E1614;--surface:#15201D;--surface-2:#1C2926;--ink:#E3EBE8;--muted:#97A7A2;--rule:#2B3935;--accent:#4DB6A7;--accent-ink:#0B1412;--accent-soft:#17332E;--up:#E9A553;--up-bg:#3A2A15;--down:#9DAAF2;--down-bg:#1F2650;--display:'Barlow Condensed','Arial Narrow',sans-serif;--sans:'Barlow',system-ui,sans-serif;--mono:'Spline Sans Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(.16,1,.3,1)} .ds-seg{display:inline-flex;border:1px solid var(--accent)} .ds-run{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 18px;border:0;background:transparent;color:var(--accent);cursor:pointer} .ds-run+.ds-run{border-left:1px solid var(--accent)} .ds-run:hover{background:var(--accent-soft)} .ds-run:focus-visible{outline:2px solid var(--accent);outline-offset:3px} .ds-run[aria-pressed=\"true\"]{background:var(--accent);color:var(--accent-ink)}"
+    },
+    {
+      "name": "Chart Vectors",
+      "kind": "custom",
+      "refersTo": "chart-vector",
+      "description": "Signature: event point with amber and periwinkle heading vectors drawing on load.",
+      "html": "<svg class=\"ds-chart\" viewBox=\"0 0 320 180\" width=\"320\" height=\"180\"><defs><pattern id=\"g\" width=\"24\" height=\"24\" patternUnits=\"userSpaceOnUse\"><path d=\"M24 0H0V24\" fill=\"none\" stroke=\"#16221F\"/></pattern></defs><rect width=\"320\" height=\"180\" fill=\"url(#g)\"/><path d=\"M0 150 C60 130 90 160 150 140 L150 180 L0 180Z\" fill=\"#17332E\" stroke=\"#4DB6A7\" stroke-width=\"1.25\"/><path class=\"ds-vec ds-u\" pathLength=\"1\" d=\"M150 100 L270 40\"/><path class=\"ds-vec ds-u\" pathLength=\"1\" d=\"M150 100 L280 100\"/><path class=\"ds-vec ds-d\" pathLength=\"1\" d=\"M150 100 L60 40\"/><circle cx=\"150\" cy=\"100\" r=\"6\" fill=\"#4DB6A7\"/><text x=\"200\" y=\"30\" class=\"ds-lab ds-ut\">Crude oil</text><text x=\"20\" y=\"30\" class=\"ds-lab ds-dt\">Airlines</text><text x=\"250\" y=\"160\" class=\"ds-snd\">34</text></svg>",
+      "css": ":host{--bg:#0E1614;--surface:#15201D;--surface-2:#1C2926;--ink:#E3EBE8;--muted:#97A7A2;--rule:#2B3935;--accent:#4DB6A7;--accent-ink:#0B1412;--accent-soft:#17332E;--up:#E9A553;--up-bg:#3A2A15;--down:#9DAAF2;--down-bg:#1F2650;--display:'Barlow Condensed','Arial Narrow',sans-serif;--sans:'Barlow',system-ui,sans-serif;--mono:'Spline Sans Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(.16,1,.3,1)} .ds-chart{background:var(--bg);display:block} .ds-vec{fill:none;stroke-width:4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:ds-draw 1.4s var(--ease) forwards} .ds-vec:nth-of-type(2){animation-delay:.12s} .ds-vec:nth-of-type(3){animation-delay:.24s} .ds-u{stroke:var(--up)} .ds-d{stroke:var(--down)} .ds-lab{font-family:var(--display);font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:.02em} .ds-ut{fill:var(--up)} .ds-dt{fill:var(--down)} .ds-snd{font-family:var(--mono);font-size:12px;fill:var(--down);opacity:.55} @keyframes ds-draw{to{stroke-dashoffset:0}} @media (prefers-reduced-motion:reduce){.ds-vec{animation:none;stroke-dashoffset:0}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Pilot Chart",
+    "overview": "Newsleaf is drawn as a navigational chart at night. Every event is a position on the chart and every effect is a heading vector of price pressure: amber for up, periwinkle for down, drawn out from the event. The ground is a deep green-black sea with a faint 48px chart grid. Coastlines are teal hairlines over dark land, depths are small monospace soundings, and a compass rose anchors the hero. Panels are chart title blocks: rectangular, framed in teal, never lifted off the paper.\n\nDensity is that of a working chart. Long condensed uppercase titles, quiet sans body copy in muted ink, and monospace used only where something is measured (times, counts, sources, dollar amounts on bars). Hierarchy comes from line weight and colour on one flat plane, never from shadow or rounding. The page is dark green throughout; this is a pinned brand commitment, not a mood choice.\n\nExplicitly rejected: the fintech SaaS hero-plus-feature-cards page. Sections are chart sheets divided by rules, not grids of floating cards.",
+    "keyCharacteristics": [
+      "One flat dark-green plane; depth by tone (ground, surface, surface-raised) and line weight only.",
+      "Teal is the chart's structural ink: frames, coastlines, links, primary actions, focus.",
+      "Amber and periwinkle carry direction and nothing else.",
+      "Square corners everywhere; circles appear only as chart point symbols.",
+      "Barlow Condensed caps for titles and labels, Barlow for reading, Spline Sans Mono for measurements.",
+      "Vectors draw on load; the chart re-plots rather than animating decoration."
+    ],
+    "rules": [
+      {
+        "name": "The Direction-Only Rule",
+        "body": "Amber means up and periwinkle means down. Neither is ever used for decoration, emphasis, or branding outside the logo mark. The build carries one exception: the \"weakened\" status marker is amber even when the weakened arrow points down. Do not extend that reuse to new elements.",
+        "section": "colors"
+      },
+      {
+        "name": "The Teal Ink Rule",
+        "body": "Teal is the only structural accent. If a frame, rule, link, or action needs colour, it is teal.",
+        "section": "colors"
+      },
+      {
+        "name": "The Soundings Rule",
+        "body": "Mono is for measured values only: times, counts, amounts, sources. Never for headings, buttons, or prose.",
+        "section": "typography"
+      },
+      {
+        "name": "The Chart Title Rule",
+        "body": "All headings and labels are Barlow Condensed uppercase; reading copy is never uppercase.",
+        "section": "typography"
+      },
+      {
+        "name": "The Chart Paper Rule",
+        "body": "Everything lies on the chart. No shadow, no hover lift, no floating cards. If something needs prominence, frame it in teal or fill it with surface tone.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** frame primary panels as chart title blocks: Title Block Green fill, 1.5px teal border, square corners, no shadow.",
+      "**Do** divide content with 1px Hairline Rule lines and open each ruled group with a 1.5px teal top rule.",
+      "**Do** encode direction with Heading Amber (up) and Periwinkle Current (down) plus an arrow, never colour alone.",
+      "**Do** set titles, labels, and buttons in Barlow Condensed uppercase, reading copy in Barlow, and measurements in Spline Sans Mono.",
+      "**Do** use the single ease cubic-bezier(.16,1,.3,1) and drop all motion under prefers-reduced-motion.",
+      "**Do** label sample data with the tag style wherever the demo graph appears."
+    ],
+    "donts": [
+      "**Don't** add drop shadows, hover lifts, or rounded corners to any rectangle.",
+      "**Don't** use amber or periwinkle for anything other than up and down pressure.",
+      "**Don't** set prose, buttons, or headings in the mono face.",
+      "**Don't** leave the dark-green palette: no light sections, no off-palette accents.",
+      "**Don't** build sections as grids of floating feature cards; use ruled columns on the chart."
+    ]
+  }
+}
